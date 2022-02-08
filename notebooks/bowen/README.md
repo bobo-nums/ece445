@@ -1,6 +1,6 @@
 # Bowen Worklog
 ## 2/7/22 - Work on proposal
-We met and worked on our project proposal. We found some components that could work for our sensors. 
+We met and worked on our project proposal. We found some components that could work for our sensors and researched the difference between a photodiode and light dependent resistor. It seems that a light dependent resistor is cheaper, has a slower response, and is tuned to the visible spectrum. Since weather changes slowly, an LDR might be a bettery choice than a photodiode. 
 
 - SEN-18364 humidity and temperature sensor
     - 2.2V - 5.5V
