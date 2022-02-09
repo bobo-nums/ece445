@@ -14,3 +14,10 @@ We met and worked on our project proposal. We found some components that could w
 We also researched how to smoothly switch between two different power sources and found something called a power mux. However, none of the components could support a 24V input, so we might need to find something else, or switch to 12V LEDs. 
 
 ## 2/8/22 - First TA meeting
+Today, we met with Qingyu and went over our proposal. He said we were progressing nicely, but he did have some comments. He advised us to:
+- figure out how to demonstrate our final product
+- add numbers and details to the high level requirements
+- list specific communication protocols on our block diagram
+- talk to another TA or professor about our power electronics questions
+
+We were unsure if the 24V input switching was possible between the solar panel and grid power, so we will need to talk to someone with more experience in that field.
