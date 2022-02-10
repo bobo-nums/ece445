@@ -21,3 +21,6 @@ Today, we met with Qingyu and went over our proposal. He said we were progressin
 - talk to another TA or professor about our power electronics questions
 
 We were unsure if the 24V input switching was possible between the solar panel and grid power, so we will need to talk to someone with more experience in that field.
+
+## 2/9/22 - Talk to TA
+I went to Stasiu's office hours and asked him about the power switching system. If we used a voltage less than 24V, we could use a power mux. If we want to keep 24V, we might be able to create a switching network with solid state relays because of their fast switching speed, diodes to prevent reverse current flow, and some large capacitors to minimize volage transients.
