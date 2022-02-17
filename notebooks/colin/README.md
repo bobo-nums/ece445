@@ -1,7 +1,5 @@
 # Colin Worklog
 
-[TOC]
-
 # 2022-02-07 - Meeting for Project Proposal
 We met to discuss the inner workings of the project proposal.  Specific attention was paid to the parts (i.e. sensors) and the block diagram, which Richard and I developed.  Progress is still needed for both of these components before finalizing the proposal by Thursday, 02/10.
 
