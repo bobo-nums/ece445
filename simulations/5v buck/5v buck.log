@@ -1,0 +1,43 @@
+Circuit: * E:\Documents\_Stuff\_School\Senior\second_sem\ece445\git\simulations\5v buck\5v buck.asc
+
+Questionable use of curly braces in "b§e_abmgate yint 0 v={if(v(a)>{{vthresh}}|v(b)>{{vthresh}},{{vdd}},{{vss}})}"
+    Error: undefined symbol in: "if([v](a)>((vthresh))|v(b)>((vthresh)),((vdd)),((vss)))"
+Questionable use of curly braces in "b§e_abmgate yint 0 v={if(v(a)>{{vthresh}}&v(b)>{{vthresh}},{{vss}},{{vdd}})}"
+    Error: undefined symbol in: "if([v](a)>((vthresh))&v(b)>((vthresh)),((vss)),((vdd)))"
+Questionable use of curly braces in "b§e_abmgate yint 0 v={if(v(a)>{{vthresh}}&v(b)>{{vthresh}},{{vdd}},{{vss}})}"
+    Error: undefined symbol in: "if([v](a)>((vthresh))&v(b)>((vthresh)),((vdd)),((vss)))"
+Questionable use of curly braces in "b§e_abmgate yint 0 v={if(v(a)>{{vthresh}}|v(b)>{{vthresh}}|v(c)>{{vthresh}},{{vss}},{{vdd}})}"
+    Error: undefined symbol in: "if([v](a)>((vthresh))|v(b)>((vthresh))|v(c)>((vthresh)),((vss)),((vdd)))"
+Questionable use of curly braces in "b§e_abmgate yint 0 v={if(v(a)>{{vthresh}},{{vdd}},{{vss}})}"
+    Error: undefined symbol in: "if([v](a)>((vthresh)),((vdd)),((vss)))"
+WARNING: Less than two connections to node NC_01.  This node is used by R:U2:NC_0.
+WARNING: Less than two connections to node NC_02.  This node is used by R:U2:NC_1.
+WARNING: Less than two connections to node NC_03.  This node is used by R:U2:NC_2.
+WARNING: Less than two connections to node NC_04.  This node is used by R:U2:NC_3.
+WARNING: Less than two connections to node NC_05.  This node is used by R:U2:NC_4.
+WARNING: Less than two connections to node NC_06.  This node is used by R:U2:NC_5.
+WARNING: Less than two connections to node NC_07.  This node is used by R:U2:NC_6.
+WARNING: Less than two connections to node NC_08.  This node is used by R:U2:NC_7.
+WARNING: Less than two connections to node NC_09.  This node is used by R:U2:NC_8.
+Direct Newton iteration for .op point succeeded.
+Ignoring empty pin current: Ix(u2:fb)
+Ignoring empty pin current: Ix(u2:fb)
+
+Date: Fri Feb 18 15:28:30 2022
+Total elapsed time: 21.398 seconds.
+
+tnom = 27
+temp = 27
+method = modified trap
+totiter = 1839720
+traniter = 1839713
+tranpoints = 666378
+accept = 495284
+rejected = 171094
+matrix size = 118
+fillins = 53
+solver = Normal
+Thread vector: 6.6/5.3[2] 1.8/1.5[2] 2.7/1.8[2] 0.3/0.5[1]  2592/500
+Matrix Compiler1: 5.25 KB object code size  1.6/0.9/[0.4]
+Matrix Compiler2: 7.79 KB object code size  0.9/1.6/[0.4]
+
