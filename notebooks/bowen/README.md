@@ -41,3 +41,6 @@ I used LTspice to create a simulation of our 3.3V and 5V buck converters as well
 The two figures below show the voltage output and shutdown signals respectively. We can see that even when both outputs are off for 0.5ms, the voltage does not drop below around 23.89V, which fulfills our requirement. 
 ![sim_v](voltage.png)
 ![sim_shdn](shdn.png)
+
+## 2/22/22 - Design document check
+We had our design document check meeting today with Prof. Shao. She suggested we put more detail (power/data lines) into our block diagram, include more quantitative requirements & verifications, and include power drawn by sensors. We also determined that the switching network exceeded voltage transient requirements when we added a dummy load, so we will need to fix it.
