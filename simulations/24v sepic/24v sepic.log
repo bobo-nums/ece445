@@ -9,40 +9,46 @@ Gmin = 0.0123794
 Gmin = 0.00132923
 Gmin = 0.000142725
 Gmin = 1.5325e-005
-vernier = 0.5
-Gmin = 4.35418e-006
-vernier = 0.666667
-vernier = 0.888888
-Gmin = 7.73794e-007
-vernier = 1
-Gmin = 8.6905e-008
-Gmin = 9.33136e-009
-Gmin = 1.00195e-009
-Gmin = 1.07583e-010
-Gmin = 1.15517e-011
-Gmin = 1.24035e-012
-Gmin = 1.33182e-013
+Gmin = 1.6455e-006
+Gmin = 1.76685e-007
+Gmin = 1.89714e-008
+Gmin = 2.03704e-009
+Gmin = 2.18725e-010
+Gmin = 2.34854e-011
+Gmin = 2.52173e-012
+Gmin = 2.70769e-013
 Gmin = 0
 Gmin stepping succeeded in finding the operating point.
 
 Ignoring empty pin current: Ix(u2:5)
 Ignoring empty pin current: Ix(u2:5)
+Heightened Def Con from 0.00088908 to 0.000889084
+Heightened Def Con from 0.00131988 to 0.00131988
+Heightened Def Con from 0.0013906 to 0.00139061
+Heightened Def Con from 0.00150312 to 0.00150312
+Heightened Def Con from 0.00158027 to 0.00158028
+Heightened Def Con from 0.003207 to 0.00320701
+Heightened Def Con from 0.00364102 to 0.00364102
+Heightened Def Con from 0.00404288 to 0.00404288
+Heightened Def Con from 0.00455083 to 0.00455084
+Heightened Def Con from 0.00462799 to 0.00462799
+Heightened Def Con from 0.00486267 to 0.00486268
+Heightened Def Con from 0.00490636 to 0.00490636
 
-Date: Wed Feb 23 14:27:37 2022
-Total elapsed time: 6.639 seconds.
+Date: Wed Feb 23 20:44:38 2022
+Total elapsed time: 19.996 seconds.
 
 tnom = 27
 temp = 27
 method = modified trap
-totiter = 702752
-traniter = 702180
-tranpoints = 187953
-accept = 141190
-rejected = 46763
+totiter = 2581786
+traniter = 2581308
+tranpoints = 692683
+accept = 522446
+rejected = 170249
 matrix size = 42
 fillins = 14
 solver = Normal
-Thread vector: 7.8/3.7[2] 2.4/2.4[1] 0.5/1.2[1] 0.4/46.8[1]  2592/500
-Matrix Compiler1: 2.51 KB object code size  1.2/0.7/[0.4]
-Matrix Compiler2: 3.10 KB object code size  1.9/2.4/[0.9]
+Matrix Compiler1: 2.51 KB object code size  0.7/0.4/[0.2]
+Matrix Compiler2: 3.10 KB object code size  0.7/0.7/[0.4]
 

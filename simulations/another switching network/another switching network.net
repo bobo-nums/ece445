@@ -1,0 +1,29 @@
+* C:\Users\tarko\Desktop\ece445\simulations\another switching network\another switching network.asc
+XU1 0 P001 N003 P002 N005 MP_01 MP_02 MP_03 MP_04 MP_05 N001 MP_06 MP_07 MP_08 MP_09 N006 N001 N002 N001 LT1161
+V2 N001 0 24
+C1 P001 0 1µ
+C2 P002 0 1µ
+M1 N001 N002 N004 N004 BSC060N10NS3
+M2 N007 N006 N004 N004 BSC060N10NS3
+V1 N003 0 PWL(0 0 5m 0 5.01m 0 9.99m 0 10m 5)
+V3 N010 0 PWL(0 5 5m 5 9.99m 5 10m 0)
+XU2 0 P003 N010 P004 N008 MP_10 MP_11 MP_12 MP_13 MP_14 N011 MP_15 MP_16 MP_17 MP_18 N009 N011 N012 N011 LT1161
+V4 N011 0 24
+C3 P003 0 1µ
+C4 P004 0 1µ
+M3 N011 N012 N013 N013 BSC060N10NS3
+M4 N007 N009 N013 N013 BSC060N10NS3
+V5 N005 0 PWL(0 0 5m 0 5.01m 0 9.99m 0 10m 5)
+V6 N008 0 PWL(0 5 5m 5 9.99m 5 10m 0)
+R1 N007 0 15
+C5 N007 0 330µ V=35 Irms=1.06 Rser=0.06 Lser=0 mfg="Nichicon" pn="UPL1V331MPH" type="Al electrolytic"
+C7 N007 0 10µ V=35 Irms=0 Rser=0 Lser=0 mfg="Murata" pn="GRM21BR6YA106KE43" type="X5R"
+C8 N007 0 10µ V=35 Irms=0 Rser=0 Lser=0 mfg="Murata" pn="GRM21BR6YA106KE43" type="X5R"
+C6 N007 0 330µ V=35 Irms=1.06 Rser=0.06 Lser=0 mfg="Nichicon" pn="UPL1V331MPH" type="Al electrolytic"
+.model NMOS NMOS
+.model PMOS PMOS
+.lib C:\Users\tarko\OneDrive\Documents\LTspiceXVII\lib\cmp\standard.mos
+.tran 15m
+.lib LT1161.sub
+.backanno
+.end

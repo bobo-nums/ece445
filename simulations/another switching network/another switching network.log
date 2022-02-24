@@ -1,0 +1,180 @@
+Circuit: * C:\Users\tarko\Desktop\ece445\simulations\another switching network\another switching network.asc
+
+V6: Removing PWL point (0.005,5)
+V5: Removing PWL point (0.005,0)
+V3: Removing PWL point (0.005,5)
+V1: Removing PWL point (0.005,0)
+Direct Newton iteration failed to find .op point.  (Use ".option noopiter" to skip.)
+Starting Gmin stepping
+Gmin = 10
+Gmin = 1.07374
+Gmin = 0.115292
+Gmin = 0.0123794
+Gmin = 0.00132923
+Gmin = 0.000142725
+Gmin = 1.5325e-005
+vernier = 0.5
+vernier = 0.25
+vernier = 0.125
+Gmin = 4.01735e-006
+vernier = 0.0625
+vernier = 0.03125
+vernier = 0.015625
+vernier = 0.0078125
+vernier = 0.00390625
+vernier = 0.00195313
+vernier = 0.000976563
+vernier = 0.000488281
+Gmin = 0
+Gmin stepping failed
+
+Starting source stepping with srcstepmethod=0
+Source Step = 3.0303%
+vernier = 0.25
+Source Step = 0.0177557%
+Source Step = 0.0473485%
+Source Step = 0.0769413%
+Source Step = 0.106534%
+Source Step = 0.136127%
+Source Step = 0.16572%
+vernier = 0.00146484
+Source Step = 0.210109%
+Source Step = 0.254498%
+Source Step = 0.298887%
+Source Step = 0.343277%
+Source Step = 0.387666%
+vernier = 0.00219727
+Source Step = 0.45203%
+Source Step = 0.518614%
+Source Step = 0.585198%
+Source Step = 0.651781%
+Source Step = 0.718365%
+vernier = 0.0032959
+Source Step = 0.811583%
+Source Step = 0.911458%
+Source Step = 1.01133%
+Source Step = 1.11121%
+Source Step = 1.21109%
+vernier = 0.00494385
+Source Step = 1.34592%
+Source Step = 1.49573%
+Source Step = 1.64554%
+Source Step = 1.79536%
+Source Step = 1.94517%
+vernier = 0.00741577
+Source Step = 2.13993%
+Source Step = 2.36465%
+Source Step = 2.58937%
+Source Step = 2.81409%
+Source Step = 3.03881%
+vernier = 0.0111237
+Source Step = 3.31971%
+Source Step = 3.65679%
+Source Step = 3.99387%
+Source Step = 4.33095%
+Source Step = 4.66803%
+vernier = 0.0166855
+Source Step = 5.07253%
+Source Step = 5.57815%
+Source Step = 6.08377%
+Source Step = 6.58939%
+Source Step = 7.09501%
+vernier = 0.0250282
+Source Step = 7.67648%
+Source Step = 8.43491%
+Source Step = 9.19334%
+Source Step = 9.95177%
+Source Step = 10.7102%
+vernier = 0.0375423
+Source Step = 11.5445%
+Source Step = 12.6821%
+Source Step = 13.8198%
+Source Step = 14.9574%
+Source Step = 16.0951%
+vernier = 0.0563135
+Source Step = 17.2896%
+Source Step = 18.9961%
+Source Step = 20.7025%
+Source Step = 22.409%
+Source Step = 24.1155%
+Source Step = 25.8219%
+vernier = 0.0844703
+Source Step = 28.3816%
+Source Step = 30.9414%
+Source Step = 33.5011%
+Source Step = 36.0608%
+Source Step = 38.6205%
+vernier = 0.126705
+Source Step = 42.332%
+Source Step = 46.1716%
+Source Step = 50.0112%
+Source Step = 53.8507%
+Source Step = 57.6903%
+vernier = 0.190058
+Source Step = 63.0657%
+Source Step = 68.825%
+Source Step = 74.5843%
+Source Step = 80.3437%
+Source Step = 86.103%
+vernier = 0.285087
+Source Step = 93.8781%
+Source Step = 100%
+Source Step = 100%
+Source Step = 100%
+Source stepping succeeded in finding the operating point.
+
+Ignoring empty pin current: Ix(u1:6)
+Ignoring empty pin current: Ix(u1:7)
+Ignoring empty pin current: Ix(u1:8)
+Ignoring empty pin current: Ix(u1:9)
+Ignoring empty pin current: Ix(u1:10)
+Ignoring empty pin current: Ix(u1:12)
+Ignoring empty pin current: Ix(u1:13)
+Ignoring empty pin current: Ix(u1:14)
+Ignoring empty pin current: Ix(u1:15)
+Ignoring empty pin current: Ix(u2:6)
+Ignoring empty pin current: Ix(u2:7)
+Ignoring empty pin current: Ix(u2:8)
+Ignoring empty pin current: Ix(u2:9)
+Ignoring empty pin current: Ix(u2:10)
+Ignoring empty pin current: Ix(u2:12)
+Ignoring empty pin current: Ix(u2:13)
+Ignoring empty pin current: Ix(u2:14)
+Ignoring empty pin current: Ix(u2:15)
+Ignoring empty pin current: Ix(u1:6)
+Ignoring empty pin current: Ix(u1:7)
+Ignoring empty pin current: Ix(u1:8)
+Ignoring empty pin current: Ix(u1:9)
+Ignoring empty pin current: Ix(u1:10)
+Ignoring empty pin current: Ix(u1:12)
+Ignoring empty pin current: Ix(u1:13)
+Ignoring empty pin current: Ix(u1:14)
+Ignoring empty pin current: Ix(u1:15)
+Ignoring empty pin current: Ix(u2:6)
+Ignoring empty pin current: Ix(u2:7)
+Ignoring empty pin current: Ix(u2:8)
+Ignoring empty pin current: Ix(u2:9)
+Ignoring empty pin current: Ix(u2:10)
+Ignoring empty pin current: Ix(u2:12)
+Ignoring empty pin current: Ix(u2:13)
+Ignoring empty pin current: Ix(u2:14)
+Ignoring empty pin current: Ix(u2:15)
+
+Date: Thu Feb 24 00:31:19 2022
+Total elapsed time: 0.986 seconds.
+
+tnom = 27
+temp = 27
+method = modified trap
+totiter = 9378
+traniter = 3299
+tranpoints = 1334
+accept = 1241
+rejected = 93
+matrix size = 87
+fillins = 56
+solver = Normal
+Thread vector: 18.2/11.6[3] 6.8/4.5[3] 1.5/2.8[1] 0.7/5.1[1]  2592/500
+Matrix Compiler1: 5.80 KB object code size  2.5/1.2/[0.6]
+Matrix Compiler2: 6.42 KB object code size  4.3/7.2/[1.2]
+
