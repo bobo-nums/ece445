@@ -1,7 +1,7 @@
 # Project Proposal Meeting (2/7/22)
 The goal of this session was to meet and discuss the requirements of our traffic light system and how everything would connect generally. Tomorrow we are meeting with our TA for the first time and we will get their opinion on what we come up with today. Prior to meeting I created the intial version of our visual aid diagram (see figure 1). After discussing the subsystems and components of our system I created the first version of our block diagram (see figure 2). There is missing details which will likely need to be added in the future (communication protocols between the sensors and the MCU, etc.). We briefly talked about parts we could use, we will make a more definitive list after ironing out some finer details.  
 
-![Visual Aid](https://github.com/bobo-nums/ece445/blob/main/notebooks/richard/visual%20aid.PNG)
+![Visual Aid](https://github.com/bobo-nums/ece445/blob/main/notebooks/richard/visual%20aid.PNG) <br>
 ![Block Diagram V1](https://github.com/bobo-nums/ece445/blob/main/notebooks/richard/block_diagramV1.PNG)
 
 
@@ -20,7 +20,7 @@ We had our second TA meeting today and went over some finer details. In particul
 # Writing up design document (2/20/22)
 I added a figures for the main control flow of our microcontroller and all the tables in the cost analysis section. We wrote up the rest of the requirements and verifications for all the subsystems, completing the first version of our design doc. 
 
-![Control Flow V1](https://github.com/bobo-nums/ece445/blob/main/notebooks/richard/control_flow_v1.PNG) \\
-![Labor Cost Table](https://github.com/bobo-nums/ece445/blob/main/notebooks/richard/labor%20cost%20table.PNG) \\
-![Parts Cost Table](https://github.com/bobo-nums/ece445/blob/main/notebooks/richard/parts%20cost%20table.PNG) \\
+![Control Flow V1](https://github.com/bobo-nums/ece445/blob/main/notebooks/richard/control_flow_v1.PNG) <br>
+![Labor Cost Table](https://github.com/bobo-nums/ece445/blob/main/notebooks/richard/labor%20cost%20table.PNG) <br>
+![Parts Cost Table](https://github.com/bobo-nums/ece445/blob/main/notebooks/richard/parts%20cost%20table.PNG) <br>
 ![Schedule Table](https://github.com/bobo-nums/ece445/blob/main/notebooks/richard/schedule%20table.PNG)
