@@ -20,6 +20,7 @@ We had our second TA meeting today and went over some finer details. In particul
 # Writing up design document (2/20/22)
 I added a figures for the main control flow of our microcontroller and all the tables in the cost analysis section. We wrote up the rest of the requirements and verifications for all the subsystems, completing the first version of our design doc. 
 
-![Labor Cost Table](https://github.com/bobo-nums/ece445/blob/main/notebooks/richard/labor%20cost%20table.PNG)
-![Parts Cost Table](https://github.com/bobo-nums/ece445/blob/main/notebooks/richard/parts%20cost%20table.PNG)
+![Control Flow V1](https://github.com/bobo-nums/ece445/blob/main/notebooks/richard/control_flow_v1.PNG) \\
+![Labor Cost Table](https://github.com/bobo-nums/ece445/blob/main/notebooks/richard/labor%20cost%20table.PNG) \\
+![Parts Cost Table](https://github.com/bobo-nums/ece445/blob/main/notebooks/richard/parts%20cost%20table.PNG) \\
 ![Schedule Table](https://github.com/bobo-nums/ece445/blob/main/notebooks/richard/schedule%20table.PNG)
