@@ -18,4 +18,8 @@ In this meeting we tried to pick out most of our parts. We decided we could use 
 We had our second TA meeting today and went over some finer details. In particular for our power system how we would be switching between the grid power and solar panel. Our plan as of right now is to use a large resistor tied to GND to take voltage readings from the solar panel and be able to tell if there is sufficient power to use it. This will draw a little bit of power that goes to waste, ideally we would be able to feed this energy back into the grid but this is beyond the scope of our current project.
 
 # Writing up design document (2/20/22)
-I added a figures for the main control flow of our microcontroller and all the tables in the cost analysis section. We wrote up the rest of the requirements and verifications for all the subsystems, completing the design doc. 
+I added a figures for the main control flow of our microcontroller and all the tables in the cost analysis section. We wrote up the rest of the requirements and verifications for all the subsystems, completing the first version of our design doc. 
+
+![Labor Cost Table](https://github.com/bobo-nums/ece445/blob/main/notebooks/richard/labor%20cost%20table.PNG)
+![Parts Cost Table](https://github.com/bobo-nums/ece445/blob/main/notebooks/richard/parts%20cost%20table.PNG)
+![Schedule Table](https://github.com/bobo-nums/ece445/blob/main/notebooks/richard/schedule%20table.PNG)
