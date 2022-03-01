@@ -27,6 +27,7 @@ Heightened Def Con from 0.00131988 to 0.00131988
 Heightened Def Con from 0.0013906 to 0.00139061
 Heightened Def Con from 0.00150312 to 0.00150312
 Heightened Def Con from 0.00158027 to 0.00158028
+<<<<<<< HEAD
 Heightened Def Con from 0.003207 to 0.00320701
 Heightened Def Con from 0.00364102 to 0.00364102
 Heightened Def Con from 0.00404288 to 0.00404288
@@ -51,3 +52,5 @@ solver = Normal
 Matrix Compiler1: 2.51 KB object code size  0.6/0.3/[0.2]
 Matrix Compiler2: 3.10 KB object code size  0.4/0.6/[0.3]
 
+=======
+>>>>>>> 81b307ee9061572f11a89d17dcf7623ea3aff4f8
