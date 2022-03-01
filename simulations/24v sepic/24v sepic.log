@@ -1,4 +1,4 @@
-Circuit: * C:\Users\tarko\Desktop\ece445\simulations\24v sepic\24v sepic.asc
+Circuit: * E:\Documents\_Stuff\_School\Senior\second_sem\ece445\git\simulations\24v sepic\24v sepic.asc
 
 Direct Newton iteration failed to find .op point.  (Use ".option noopiter" to skip.)
 Starting Gmin stepping
@@ -22,26 +22,32 @@ Gmin stepping succeeded in finding the operating point.
 
 Ignoring empty pin current: Ix(u2:5)
 Ignoring empty pin current: Ix(u2:5)
-Heightened Def Con from 0.000344965 to 0.000344969
-Heightened Def Con from 0.0014445 to 0.00144451
-Heightened Def Con from 0.00151201 to 0.00151202
-Heightened Def Con from 0.00158792 to 0.00158792
+Heightened Def Con from 0.00088908 to 0.000889084
+Heightened Def Con from 0.00131988 to 0.00131988
+Heightened Def Con from 0.0013906 to 0.00139061
+Heightened Def Con from 0.00150312 to 0.00150312
+Heightened Def Con from 0.00158027 to 0.00158028
+Heightened Def Con from 0.003207 to 0.00320701
+Heightened Def Con from 0.00364102 to 0.00364102
+Heightened Def Con from 0.00404288 to 0.00404288
+Heightened Def Con from 0.00455083 to 0.00455084
+Heightened Def Con from 0.00462799 to 0.00462799
+Heightened Def Con from 0.00486267 to 0.00486268
 
-Date: Thu Feb 24 00:37:14 2022
-Total elapsed time: 8.037 seconds.
+Date: Tue Mar 01 02:26:21 2022
+Total elapsed time: 28.169 seconds.
 
 tnom = 27
 temp = 27
 method = modified trap
-totiter = 790510
-traniter = 790032
-tranpoints = 212112
-accept = 159206
-rejected = 52910
+totiter = 2632428
+traniter = 2631950
+tranpoints = 706325
+accept = 532766
+rejected = 173570
 matrix size = 42
 fillins = 14
 solver = Normal
-Thread vector: 6.6/5.7[2] 3.3/5.1[1] 0.5/3.0[1] 0.2/2.4[1]  2592/500
-Matrix Compiler1: 2.51 KB object code size  1.1/0.6/[0.3]
-Matrix Compiler2: 3.10 KB object code size  0.6/1.9/[0.4]
+Matrix Compiler1: 2.51 KB object code size  0.6/0.3/[0.2]
+Matrix Compiler2: 3.10 KB object code size  0.4/0.6/[0.3]
 
