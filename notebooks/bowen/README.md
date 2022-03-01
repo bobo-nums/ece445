@@ -41,3 +41,12 @@ I used LTspice to create a simulation of our 3.3V and 5V buck converters as well
 The two figures below show the voltage output and shutdown signals respectively. We can see that even when both outputs are off for 0.5ms, the voltage does not drop below around 23.89V, which fulfills our requirement. 
 ![sim_v](voltage.png)
 ![sim_shdn](shdn.png)
+
+## 2/22/22 - Design document check
+We had our design document check meeting today with Prof. Shao. She suggested we put more detail (power/data lines) into our block diagram, include more quantitative requirements & verifications, and include power drawn by sensors. We also determined that the switching network exceeded voltage transient requirements when we added a dummy load, so we will need to fix it.
+
+## 2/28/22 - Power board PCB
+I finished creating the schematic for the power board, which contains the 3.3V and 5V buck, 24V sepic converter, and the switching network. 
+![pschem](power_board_schematic.png)
+I also laid out the PCB. I tried to keep all systems together and ensure thick traces/copper pours when dealing with high current (anything greater than 1A).
+![ppcb](power_board_pcb.png)
