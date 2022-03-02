@@ -50,3 +50,11 @@ I finished creating the schematic for the power board, which contains the 3.3V a
 ![pschem](power_board_schematic.png)
 I also laid out the PCB. I tried to keep all systems together and ensure thick traces/copper pours when dealing with high current (anything greater than 1A).
 ![ppcb](power_board_pcb.png)
+
+## 3/1/22 - Design document presentation/PCB board check
+Today we presented our design document and received a few criticisms. The first bullet point of our high level requirements should include the power cost estimate of the entire system and compare it with a normal traffic light system to see how much energy/money we expect to save. There were also minor comments like changing the colors/background of some figures to make it more legible. 
+
+We only finished the power board for the PCB board check. Our board was over the 100mm x 100mm size, so I needed to move the 3.3V and 5V buck converters onto the MCU board. This is the new power board.
+![ppcb2](power_board_pcb2.png)
+
+For the light board, we will need to perform some tests on the lights to determine if we need a current limiting resistor. I couldn't find anything in the datasheet.
