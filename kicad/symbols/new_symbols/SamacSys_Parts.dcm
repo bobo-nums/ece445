@@ -1,0 +1,33 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP NE555DR
+D Single Precision Timer
+K
+F http://www.ti.com/lit/ds/symlink/ne555.pdf
+$ENDCMP
+#
+$CMP LTC4151IMS-1#PBF
+D Current & Power Monitors & Regulators 80V HIgh-Side Power Monitor with Split SDA I/O
+K
+F https://datasheet.datasheetarchive.com/originals/distributors/Datasheets_SAMA/4497b3e337d3c9e51fdaedc2490a3c69.pdf
+$ENDCMP
+#
+$CMP MOCD207M
+D FAIRCHILD SEMICONDUCTOR - MOCD207M. - OPTOCOUPLER, TRANSISTOR, 2500VRMS
+K
+F https://datasheet.datasheetarchive.com/originals/distributors/Datasheets_SAMA/334070fd37891a2fc21c7635cf39da99.pdf
+$ENDCMP
+#
+$CMP ATMEGA328-PU
+D 8-bit Microcontrollers - MCU AVR 32K FLSH 1K EE2K SRAM-20MHz IND
+K
+F https://componentsearchengine.com/Datasheets/1/ATMEGA328-PU.pdf
+$ENDCMP
+#
+$CMP ERJ-3BWFR020V
+D Current Sense Resistors - SMD 0603 0.02ohm 1% Curr Sense AEC-Q200
+K
+F http://industrial.panasonic.com/cdbs/www-data/pdf/RDN0000/AOA0000C313.pdf
+$ENDCMP
+#
+#End Doc Library
