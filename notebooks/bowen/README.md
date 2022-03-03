@@ -48,13 +48,22 @@ We had our design document check meeting today with Prof. Shao. She suggested we
 ## 2/28/22 - Power board PCB
 I finished creating the schematic for the power board, which contains the 3.3V and 5V buck, 24V sepic converter, and the switching network. 
 ![pschem](power_board_schematic.png)
-I also laid out the PCB. I tried to keep all systems together and ensure thick traces/copper pours when dealing with high current (anything greater than 1A).
+I also laid out the PCB. I tried to keep all systems together and ensure thick traces/copper pours when dealing with high current (anything greater than 1A). I used Colin's inductor and switching maximum current calculations to determine the upper bound on the trace widths. The maximum widths should be around 2.3mm and 3.9mm respectively. Since I used thick copper pours, trace width should not be an issue, especially in typical operating conditions.
 ![ppcb](power_board_pcb.png)
 
 ## 3/1/22 - Design document presentation/PCB board check
 Today we presented our design document and received a few criticisms. The first bullet point of our high level requirements should include the power cost estimate of the entire system and compare it with a normal traffic light system to see how much energy/money we expect to save. There were also minor comments like changing the colors/background of some figures to make it more legible. 
 
-We only finished the power board for the PCB board check. Our board was over the 100mm x 100mm size, so I needed to move the 3.3V and 5V buck converters onto the MCU board. This is the new power board.
+We only finished the power board for the PCB board check. Our board was over the 100mm x 100mm size, so I needed to move the 3.3V and 5V buck converters onto the MCU board. We found that 4mm banana cables are able to connect to the solar panel, so I added 4mm connectors to the PCB. According to [wikipedia](https://en.wikipedia.org/wiki/Banana_connector), banana connectors are rated for 30V at 15A, which is enough for our case. I added the power monitoring IC and components as well. R3-R6 are 0Ω resistors meant for determining the device addressing. We can choose which resistors to solder depending on what we need in the future. This is the new power board.
 ![ppcb2](power_board_pcb2.png)
 
 For the light board, we will need to perform some tests on the lights to determine if we need a current limiting resistor. I couldn't find anything in the datasheet.
+
+## 3/2/22 - Testing lights & light board
+Richard and I used a power supply to determine the current draw of the lights and found the following:
+Red: 24V and 0.23A
+Yellow: 24V and 0.21A
+Green: 24V and 0.31A
+
+We also took apart one of the lights to find that there was internal circuitry, which most likely already contains some current limiting resistor. This means that for the light PCB, I can just connect the lights directly to 24V. The bike light that we got was not powered by 24V like we thought, but instead 120VAC. In order to control ON/OFF, I needed a relay. Since we were planning on using PWM for the bike lights, I looked into solid state relays since they have a higher switching speed than regular contact relays. However, they were either all sold out or out of our budget. So, we decided for the bike light to function without PWM. I found [this](https://www.digikey.com/en/products/detail/te-connectivity-potter-brumfield-relays/1462041-7/2126941) relay, which supports up to 2A and is controlled by 5V. I also needed to ensure that AC and DC neutral/ground were separated. In the following figure, the AC stuff is in the top right corner for the bike light.
+![lpcb1](light_board_pcb.png)
