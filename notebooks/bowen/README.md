@@ -67,3 +67,8 @@ Green: 24V and 0.31A
 
 We also took apart one of the lights to find that there was internal circuitry, which most likely already contains some current limiting resistor. This means that for the light PCB, I can just connect the lights directly to 24V. The bike light that we got was not powered by 24V like we thought, but instead 120VAC. In order to control ON/OFF, I needed a relay. Since we were planning on using PWM for the bike lights, I looked into solid state relays since they have a higher switching speed than regular contact relays. However, they were either all sold out or out of our budget. So, we decided for the bike light to function without PWM. I found [this](https://www.digikey.com/en/products/detail/te-connectivity-potter-brumfield-relays/1462041-7/2126941) relay, which supports up to 2A and is controlled by 5V. I also needed to ensure that AC and DC neutral/ground were separated. In the following figure, the AC stuff is in the top right corner for the bike light.
 ![lpcb1](light_board_pcb.png)
+
+## 3/6/22
+We decided that we wanted to isolate the 24V from the 5V and get rid of the 3.3V rail. The humidity sensor was the only sensor that used 3.3V, but we looked into its datasheet and saw that the maximum supply voltage was up to 5.5V, so we will use 5V to power it. This is the new power board and light board with optoisolators. For the power board, I decided to have pinheaders for the grid/solar control input of the switching network. This is because the optoisolators are at the bottom of the PCB while the LT1161 is at the top. I could have routed the signals on the bottom layer, but that would essentially cut my ground plane in two, which can cause ground loops
+![ppcb3](power_board_pcb3.png)
+![lpcb2](light_board_pcb2.png)
