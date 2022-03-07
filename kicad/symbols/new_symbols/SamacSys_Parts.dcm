@@ -30,4 +30,16 @@ K
 F http://industrial.panasonic.com/cdbs/www-data/pdf/RDN0000/AOA0000C313.pdf
 $ENDCMP
 #
+$CMP TMR_2-2411WIN
+D 2 Watt DC/DC converter, industrial, 4:1 input, regulated, optimized design, 1600 VDC I/O-isolation, encapsulated, SIP-8
+K
+F https://tracopower.com/tmr2win-datasheet/
+$ENDCMP
+#
+$CMP TMR_2-2410WIN
+D 2 Watt DC/DC converter, industrial, 4:1 input, regulated, optimized design, 1600 VDC I/O-isolation, encapsulated, SIP-8
+K
+F https://tracopower.com/tmr2win-datasheet/
+$ENDCMP
+#
 #End Doc Library

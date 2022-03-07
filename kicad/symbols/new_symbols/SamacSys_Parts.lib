@@ -148,4 +148,54 @@ P 5 0 1 6 200 50 500 50 500 -50 200 -50 200 50 N
 ENDDRAW
 ENDDEF
 #
+#SamacSys ECAD Model TMR_2-2411WIN
+#/485845/661173/2.49/7/2/Power Supply
+DEF TMR_2-2411WIN PS 0 30 Y Y 1 F N
+F0 "PS" 1250 300 50 H V L CNN
+F1 "TMR_2-2411WIN" 1250 200 50 H V L CNN
+F2 "TMR-2_SERIES" 1250 100 50 H I L CNN
+F3 "https://tracopower.com/tmr2win-datasheet/" 1250 0 50 H I L CNN
+F4 "2 Watt DC/DC converter, industrial, 4:1 input, regulated, optimized design, 1600 VDC I/O-isolation, encapsulated, SIP-8" 1250 -100 50 H I L CNN "Description"
+F5 "" 1250 -200 50 H I L CNN "Height"
+F6 "495-TMR2-2411WIN" 1250 -300 50 H I L CNN "Mouser Part Number"
+F7 "https://www.mouser.co.uk/ProductDetail/TRACO-Power/TMR-2-2411WIN?qs=ckJk83FOD0WjASA%2FbCa3NQ%3D%3D" 1250 -400 50 H I L CNN "Mouser Price/Stock"
+F8 "Traco Power" 1250 -500 50 H I L CNN "Manufacturer_Name"
+F9 "TMR 2-2411WIN" 1250 -600 50 H I L CNN "Manufacturer_Part_Number"
+DRAW
+X -VIN_(GND) 1 0 0 200 R 50 50 0 0 P
+X +VIN_(VCC) 2 0 -100 200 R 50 50 0 0 P
+X REMOTE_ON/OFF 3 0 -200 200 R 50 50 0 0 P
+X NTC_1 5 0 -300 200 R 50 50 0 0 P
+X +VOUT 6 0 -400 200 R 50 50 0 0 P
+X -VOUT 7 0 -500 200 R 50 50 0 0 P
+X NTC_2 8 0 -600 200 R 50 50 0 0 P
+P 5 0 1 6 200 100 1200 100 1200 -700 200 -700 200 100 N
+ENDDRAW
+ENDDEF
+#
+#SamacSys ECAD Model TMR_2-2410WIN
+#/485843/661173/2.49/7/2/Integrated Circuit
+DEF TMR_2-2410WIN IC 0 30 Y Y 1 F N
+F0 "IC" 1050 300 50 H V L CNN
+F1 "TMR_2-2410WIN" 1050 200 50 H V L CNN
+F2 "TMR22410WIN" 1050 100 50 H I L CNN
+F3 "https://tracopower.com/tmr2win-datasheet/" 1050 0 50 H I L CNN
+F4 "2 Watt DC/DC converter, industrial, 4:1 input, regulated, optimized design, 1600 VDC I/O-isolation, encapsulated, SIP-8" 1050 -100 50 H I L CNN "Description"
+F5 "11.7" 1050 -200 50 H I L CNN "Height"
+F6 "495-TMR2-2410WIN" 1050 -300 50 H I L CNN "Mouser Part Number"
+F7 "https://www.mouser.co.uk/ProductDetail/TRACO-Power/TMR-2-2410WIN?qs=ckJk83FOD0UAVtwKUZgfmg%3D%3D" 1050 -400 50 H I L CNN "Mouser Price/Stock"
+F8 "Traco Power" 1050 -500 50 H I L CNN "Manufacturer_Name"
+F9 "TMR 2-2410WIN" 1050 -600 50 H I L CNN "Manufacturer_Part_Number"
+DRAW
+X -VIN(GND) 1 0 0 200 R 50 50 0 0 P
+X +VIN(VCC) 2 0 -100 200 R 50 50 0 0 P
+X REMOTE 3 0 -200 200 R 50 50 0 0 P
+X NC_1 5 0 -300 200 R 50 50 0 0 P
+X +VOUT 6 0 -400 200 R 50 50 0 0 P
+X -VOUT 7 0 -500 200 R 50 50 0 0 P
+X NC_2 8 0 -600 200 R 50 50 0 0 P
+P 5 0 1 6 200 100 1000 100 1000 -700 200 -700 200 100 N
+ENDDRAW
+ENDDEF
+#
 #End Library
