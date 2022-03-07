@@ -42,4 +42,10 @@ K
 F https://tracopower.com/tmr2win-datasheet/
 $ENDCMP
 #
+$CMP SPBW03F-05
+D Isolated DC/DC Converters 9-36Vin 5Vout 600mA SIP8 Reg Iso
+K
+F https://datasheet.datasheetarchive.com/originals/distributors/DKDS-2/37033.pdf
+$ENDCMP
+#
 #End Doc Library
