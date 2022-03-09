@@ -32,4 +32,25 @@ We had intended on utilizing some sort of buck-boost converter to regulate the s
 
 Calculations to ensure the SEPIC can withstand minimum and maximum duty cycles and to determine component selection and ratings can also be seen below:
 
-![SEPIC Sketch](https://github.com/bobo-nums/ece445/blob/main/notebooks/colin/sepic_calculations.JPG)
+![SEPIC Calculations](https://github.com/bobo-nums/ece445/blob/main/notebooks/colin/sepic_calculations.JPG)
+
+# 2022-02-23 - Back to the Drawing Board for the Switching Network
+Today I worked on the switching network of our power subsystem, which will be responsible for automatically switching between the two power sources.  Our initial idea and design involved an ORing controller ([LTC4359](https://www.analog.com/media/en/technical-documentation/data-sheets/ltc4359.pdf "LTC4359")).  This circuit can be seen below:
+
+![Original Switching Network](https://github.com/bobo-nums/ece445/blob/main/notebooks/colin/old_switching.png)
+
+However, we decided to move away from this design due to the substantial voltage drop while switching between the sources.  The simulation waveform (with compensation capacitors at the output) can be seen below with a significant voltage dip:
+
+![Original Switching Waveform](https://github.com/bobo-nums/ece445/blob/main/notebooks/colin/old_switching_waveform.png)
+
+# 2022-02-23 - New Switching Network Design
+I realized that in order to switch between the sources while protecting against reverse current between them, it would be possible to simply use two MOSFETs in opposite orientations for each source.  This can be done by controlling a quad high-side gate driver [LT1161](https://www.analog.com/media/en/technical-documentation/data-sheets/1161fa.pdf "LT1161") via the microcontroller.  In LTspice, one can emulate this behavior by sending complementary signals into the inputs of the gate driver.  The schematic and waveform can be seen below:
+
+![New Switching Network](https://github.com/bobo-nums/ece445/blob/main/notebooks/colin/switching.png)
+
+![New Switching Waveform](https://github.com/bobo-nums/ece445/blob/main/notebooks/colin/switching_sim.png)
+
+As we can see, the voltage dip is negligible compared to that of the original design using the LTC4359 chip.  I can confidently say this is a simple method to switch between the sources while providing the desired functionality and protection.  One must note that the gate driver must possess high-side functionality due to the MOSFETs being along the 24 V node.
+
+# 2022-02-24 - Finishing Design Document
+Today we finished up the design document, taking into account feedback from our Design Document Check with Professor Shao.  We have added additional details into our high-level requirements based on this feedback.  Additionally, we realized that we must select a proper heat sink for the power resistor at the solar output.  Without it, our chosen resistor is only rated for 3 W.
