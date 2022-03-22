@@ -1,19 +1,18 @@
-#include <Wire.h>
+#include <DHT20.h>
 #define PHOTO_PIN 9
 #define IR_PIN 10
-#define SDA 0
-#define SCL 1
 #define RED_LED 3
 #define YELLOW_LED 4
 #define GREEN_LED 5
 
-cont int ir_distance = 12 //12-18 ft?
+cont int ir_distance = 8 //8 ft?
 int light_val;
 int ir_val;
+float humidity_val;
 
 void setup() {
-  // put your setup code here, to run once:
   light_val = analogRead();
+  dht.begin();
   Serial.begin(9600);
 }
 
@@ -21,7 +20,8 @@ void loop() {
   //Red light turns on
   digitalWrite(RED_LED, HIGH);
   delay(90000);
-  ir_val = analogRead(IR_PIN);
+  //TODO: Add IR sensor reading
+//   ir_val = analogRead(IR_PIN);
   while(ir_val > ir_distance){
     ir_val = analogRead(IR_PIN);
   }
@@ -35,9 +35,23 @@ void loop() {
   //Yellow light turns on
   digitalWrite(GREEN_LED, LOW);
   digitalWrite(YELLOW_LED, HIGH);
-
+  
+  //Take photoresistor reading
   light_val = analogRead(PHOTO_PIN);
-  //TODO: Read humidity sensor value through i2c
+  
+  //Take humidity reading
+  int humidity_sensor_status = dht.read();
+  switch (humidity_sensor_status)
+  {
+    case DHT20_OK:
+//       Serial.print("OK,\t");
+      humidity_val = dht.getHumidity();
+      break;
+    default:
+      Serial.print("Unknown error,\t");
+      humidity_val = 100;
+      break;
+  }
 
   delay(5000);
 }
