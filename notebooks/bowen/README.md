@@ -72,3 +72,11 @@ We also took apart one of the lights to find that there was internal circuitry, 
 We decided that we wanted to isolate the 24V from the 5V and get rid of the 3.3V rail. The humidity sensor was the only sensor that used 3.3V, but we looked into its datasheet and saw that the maximum supply voltage was up to 5.5V, so we will use 5V to power it. This is the new power board and light board with optoisolators. For the power board, I decided to have pinheaders for the grid/solar control input of the switching network. This is because the optoisolators are at the bottom of the PCB while the LT1161 is at the top. I could have routed the signals on the bottom layer, but that would essentially cut my ground plane in two, which can cause ground loops
 ![ppcb3](power_board_pcb3.png)
 ![lpcb2](light_board_pcb2.png)
+
+## 3/22/22
+Today we picked up our PCBs and sorted our components to match the three boards. We also had our TA meeting, but there wasn't much to update on since we just came back from spring break.
+
+## 3/23/22
+I spent a bunch of time trying to debug the light board and found some issues. The N-channel MOSFET should be on the low side, rather than connected to 24V. This is because currently, the Vgs is floating, when it should be the voltage from gate to ground. The VIN and GND of the relay should be switched around. Also, the optoisolator had a very large voltage drop (10.7V) when there is 5V across the anode/cathode and 12V across the collector/emitter, and I'm not really sure why. It might be because of the 10k resistances. I soldered 1k resistors and it seemed to help a bit. I'll have to try lower values and see if they work. 
+![lpcb_debug](light_debug.png)
+The power board had some blatant issues. The power resistor needs larger through holes, and we need to make space for the large heatsink and its mounting holes. We need to change the sepic MOSFET footprint to a SOIC-8 and capacitor C24 and C25 footprints to match what we ordered.
