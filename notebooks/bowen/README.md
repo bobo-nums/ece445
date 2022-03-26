@@ -80,3 +80,22 @@ Today we picked up our PCBs and sorted our components to match the three boards.
 I spent a bunch of time trying to debug the light board and found some issues. The N-channel MOSFET should be on the low side, rather than connected to 24V. This is because currently, the Vgs is floating, when it should be the voltage from gate to ground. The VIN and GND of the relay should be switched around. Also, the optoisolator had a very large voltage drop (10.7V) when there is 5V across the anode/cathode and 12V across the collector/emitter, and I'm not really sure why. It might be because of the 10k resistances. I soldered 1k resistors and it seemed to help a bit. I'll have to try lower values and see if they work. 
 ![lpcb_debug](light_debug.png)
 The power board had some blatant issues. The power resistor needs larger through holes, and we need to make space for the large heatsink and its mounting holes. We need to change the sepic MOSFET footprint to a SOIC-8 and capacitor C24 and C25 footprints to match what we ordered.
+
+## 3/24/22
+I figured out what was wrong with the optoisolators. The 10k resistors on the inputs were too large and thus very little current was flowing through the diode inside the isolator. According to the datasheet, there should be around a 1V drop across the diode at 30mA. When I changed the resistors to 150 ohms, the isolators functioned as expected. 
+
+Another thing that went wrong was the 12V divider I made to power the MOSFET gates. I wanted to ensure the turn on time was minimal, but I didn't realize that it depended on the gate current. Since I didn't want another buck converter on the board, I tried testing the MOSFETs to see if they would work with a 5V Arduino input. They ended up working using Arduino's analogWrite() as a PWM. This means we don't need a 12V rail and can either use our old 5V buck converter IC to create an isolated noisy 5V rail that's separate from the MCU's 5V rail or directly control the gates with the Arduino. I'll probably include both in our version 2 PCBs and add jumpers to decide which way we want.
+
+I also tested the photocell voltage divider and ensured it worked. The first picture below is the test circuit I used. The resistor is 1k. The second image is the voltage across the resistor when uncovered and the third is when it was covered.
+![photocell_test](photocell_test.jpg)
+![photocell_uncovered](photocell_uncovered.jpg)
+![photocell_covered](photocell_covered.jpg)
+
+Finally, I tested the power board's switching network and discovered something called [dielectric absorption](https://en.wikipedia.org/wiki/Dielectric_absorption). Essentially, large capacitances, even when disconnected from a power source, can slowly gain voltage over time, so I'll have to be careful working with this board. The switching network seems fine when I switch to grid power, but doesn't work when trying to switch to solar. I'll have to debug more later.
+
+## 3/25/22
+Today I tried burn a bootloader onto our MCU board's ATmega328p. I first tried to burn a bootloader between two Arduino MEGAs, and I used [this](https://support.arduino.cc/hc/en-us/articles/360012048060-How-to-burn-the-bootloader-between-two-Arduino-Mega) tutorial which helped a lot. I needed to change some pins (RESET, PIN_MOSI, PIN_MISO, AND PIN_SCK) in the ArduinoISP code. I also used [this](https://maker.pro/custom/tutorial/programming-an-atmega328-microcontroller-on-a-pcb) article to use the Arduino MEGA as a programmer. Below is my testing setup.
+![mcu_test](mcu_test.jpg)
+
+I got the blink sketch to run on our MCU board. I was defining the LED pin incorrectly. For future reference, use [this](https://components101.com/sites/default/files/inline-images/ATMega328P-Arduino-Uno-Pin-Mapping.png) pin mapping.
+![mcu_blink](mcu_blink.jpg)
