@@ -99,3 +99,6 @@ Today I tried burn a bootloader onto our MCU board's ATmega328p. I first tried t
 
 I got the blink sketch to run on our MCU board. I was defining the LED pin incorrectly. For future reference, use [this](https://components101.com/sites/default/files/inline-images/ATMega328P-Arduino-Uno-Pin-Mapping.png) pin mapping.
 ![mcu_blink](mcu_blink.jpg)
+
+## 3/26/22
+Today I just helped Richard set up his development configuration on his Arduino MEGA so he could program our microcontroller.
