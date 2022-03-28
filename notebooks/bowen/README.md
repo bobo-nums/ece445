@@ -101,4 +101,8 @@ I got the blink sketch to run on our MCU board. I was defining the LED pin incor
 ![mcu_blink](mcu_blink.jpg)
 
 ## 3/26/22
-Today I just helped Richard set up his development configuration on his Arduino MEGA so he could program our microcontroller.
+Today I helped Richard set up his development configuration on his Arduino MEGA so he could program our microcontroller. I also redesigned the light board.
+
+I moved the traffic light MOSFETs to the proper side, removed the bike light MOSFET, fixed resistor values, and added optional signal/GND jumpers if somehow the optoisolators do not work and we need to control the MOSFETs directly using an Arduino. We also decided to create a "noisy" 5V rail to power our MOSFETs. 
+![light_board_v2_schem](light_board_v2_schem.png)
+![light_board_v2_pcb](light_board_v2_pcb.png)
