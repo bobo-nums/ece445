@@ -113,4 +113,5 @@ Today I put together the SEPIC and tried testing it. I needed to manually solder
 ![power_board_SEPIC_test](power_board_SEPIC_test.jpg)
 ![power_board_SEPIC_v](power_board_SEPIC_v.jpg)
 
-I also made some changes to the power board... do this later lul
+I also made some changes to the power board. Mainly changing some resistor values, fixing the coupled inductor footprint, and adding proper holes for our high current inputs and power resistor/heatsink. Like the light board, I added optional jumpers to bypass the input isolation. I added thermal reliefs to large zones to make soldering easier. 
+![power_board_v2_pcb](power_board_v2_pcb.png)
