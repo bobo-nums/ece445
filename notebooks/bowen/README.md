@@ -106,3 +106,11 @@ Today I helped Richard set up his development configuration on his Arduino MEGA 
 I moved the traffic light MOSFETs to the proper side, removed the bike light MOSFET, fixed resistor values, and added optional signal/GND jumpers if somehow the optoisolators do not work and we need to control the MOSFETs directly using an Arduino. We also decided to create a "noisy" 5V rail to power our MOSFETs. 
 ![light_board_v2_schem](light_board_v2_schem.png)
 ![light_board_v2_pcb](light_board_v2_pcb.png)
+
+## 3/28/22
+Today I put together the SEPIC and tried testing it. I needed to manually solder wires in order for the coupled inductor to be connected correctly. I put the wrong footprint for one of the MOSFETs. It was an SOIC-8 but I put a LFPAK33 on the PCB. Since I was only testing the SEPIC on this power board, I used one of the SOIC-8 spaces meant for an optoisolator and cut one trace so that I didn't short gate to source. What I discovered was that the SEPIC output was non-zero only when the input voltage was aroudn 16V. I spent a while testing connectivity and double checking values and could not get it to work. Colin suggested that maybe I didn't solder the LT3757 properly, as its ground was underneath the IC. Once I soldered the ground, everything worked as expected. 
+
+![power_board_SEPIC_test](power_board_SEPIC_test.jpg)
+![power_board_SEPIC_v](power_board_SEPIC_v.jpg)
+
+I also made some changes to the power board... do this later lul

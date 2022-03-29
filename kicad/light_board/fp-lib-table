@@ -1,3 +1,4 @@
 (fp_lib_table
   (lib (name "_mine")(type "KiCad")(uri "E:/Documents/_Stuff/_School/Senior/second_sem/ece445/git/kicad/symbols/_mine")(options "")(descr ""))
+  (lib (name "_mylib")(type "KiCad")(uri "C:/Users/bobox/Documents/_Documents/ece445/kicad/symbols/_mylib.pretty")(options "")(descr ""))
 )
