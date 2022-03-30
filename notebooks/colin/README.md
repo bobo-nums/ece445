@@ -28,27 +28,27 @@ After discussing with Qingyu during our weekly meeting, we have decided to follo
 # 2022-02-22 - Designing SEPIC Converter
 We had intended on utilizing some sort of buck-boost converter to regulate the solar output voltage to 24 V ± 5% but had not yet chosen a DC-DC comversion topology.  In order to minimize the ripple at the output and provide a stable voltage to the rest of the system, we chose a single-ended primary-inductor converter (SEPIC).  A rough sketch of this can be seen below:
 
-![SEPIC Sketch](https://github.com/bobo-nums/ece445/blob/main/notebooks/colin/sepic_sketch.JPG)
+![SEPIC Sketch](sepic_sketch.JPG)
 
 Calculations to ensure the SEPIC can withstand minimum and maximum duty cycles and to determine component selection and ratings can also be seen below:
 
-![SEPIC Calculations](https://github.com/bobo-nums/ece445/blob/main/notebooks/colin/sepic_calculations.JPG)
+![SEPIC Calculations](sepic_calculations.JPG)
 
 # 2022-02-23 - Back to the Drawing Board for the Switching Network
 Today I worked on the switching network of our power subsystem, which will be responsible for automatically switching between the two power sources.  Our initial idea and design involved an ORing controller ([LTC4359](https://www.analog.com/media/en/technical-documentation/data-sheets/ltc4359.pdf "LTC4359")).  This circuit can be seen below:
 
-![Original Switching Network](https://github.com/bobo-nums/ece445/blob/main/notebooks/colin/old_switching.png)
+![Original Switching Network](old_switching.png)
 
 However, we decided to move away from this design due to the substantial voltage drop while switching between the sources.  The simulation waveform (with compensation capacitors at the output) can be seen below with a significant voltage dip:
 
-![Original Switching Waveform](https://github.com/bobo-nums/ece445/blob/main/notebooks/colin/old_switching_waveform.png)
+![Original Switching Waveform](old_switching_waveform.png)
 
 # 2022-02-23 - New Switching Network Design
 I realized that in order to switch between the sources while protecting against reverse current between them, it would be possible to simply use two MOSFETs in opposite orientations for each source.  This can be done by controlling a quad high-side gate driver [LT1161](https://www.analog.com/media/en/technical-documentation/data-sheets/1161fa.pdf "LT1161") via the microcontroller.  In LTspice, one can emulate this behavior by sending complementary signals into the inputs of the gate driver.  The schematic and waveform can be seen below:
 
-![New Switching Network](https://github.com/bobo-nums/ece445/blob/main/notebooks/colin/switching.png)
+![New Switching Network](switching.png)
 
-![New Switching Waveform](https://github.com/bobo-nums/ece445/blob/main/notebooks/colin/switching_sim.png)
+![New Switching Waveform](switching_sim.png)
 
 As we can see, the voltage dip is negligible compared to that of the original design using the LTC4359 chip.  I can confidently say this is a simple method to switch between the sources while providing the desired functionality and protection.  One must note that the gate driver must possess high-side functionality due to the MOSFETs being along the 24 V node.
 
@@ -71,11 +71,11 @@ Today I began the design of the MCU board in KiCAD, which will include selecting
 # 2022-03-07 - Finished MCU Board
 The MCU board is now complete and has passed PCBway audit.  I have now submitted a parts order online and sent the functional Gerber files to Qingyu.  The schematic and board itself are located below:
 
-![MCU Board Schematic](https://github.com/bobo-nums/ece445/blob/main/notebooks/colin/mcu_schematic.png)
+![MCU Board Schematic](mcu_schematic.png)
 
-![MCU Board](https://github.com/bobo-nums/ece445/blob/main/notebooks/colin/mcu_board.png)
+![MCU Board](mcu_board.png)
 
-![3D View of MCU Board](https://github.com/bobo-nums/ece445/blob/main/notebooks/colin/mcu_board3d.png)
+![3D View of MCU Board](mcu_board3d.png)
 
 # 2022-03-10 - Testing Bike/Pedestrian Light
 Richard placed a sample for the bike and traffic lights from Leotek and he and Bowen tested the DC traffic light modules for their various operating points and turn-on points previously.  However, the bike light we received ([Datasheet](https://leotek.com/wp-content/uploads/il6-bicycle-signal-spec_sheet.pdf "Bike Light")) is AC-powered and needed to be tested in the power lab to determine its operating points. I was able to access the Power Lab today to utilize the Variac and Yokogawa power meters for this purpose.  Combined with the previous operating points determined by Bowen and Richard, the following values represent the operating point of each of our lights:
@@ -96,7 +96,7 @@ Another important step taken today was sorting the parts between each of the thr
 # 2022-03-28 - Testing Switching Network
 Bowen and I had previously tried to test the switching network, but were confused about its functionality.  With the control signals set up so that the grid voltage is connected to the output, the output is 24 V as expected.  However, when connected so that the solar voltage is selected, the output seems to vary randomly.  I connected the circuit as follows to test and debug its functionality:
 
-![Testing Switching Network](https://github.com/bobo-nums/ece445/blob/main/notebooks/colin/testing_switching_network.png)
+![Testing Switching Network](testing_switching_network.png)
 
 This setup includes the DC power supply to provide 24 V input to simulate both solar and grid sources, a two-channel waveform generator to control the gate driver inputs for solar and grid power, a multimeter to probe various voltages and perform continuity checks, and an oscilloscope to view how the output voltages changes relative to the switching.
 
@@ -104,4 +104,10 @@ I eventually realized that the datasheet for the LT1161 quad high-side gate driv
 as intended.  This change is reflected in our most recent iteration of the power board.
 
 # 2022-03-29 - Designing 5 V Buck Board
-Bowen suggested the idea of utilizing the excess components from our previous 5 V buck converter design in the place of his resistor divider that could not provide sufficient current.  I designed an additional PCB, our fourth total, that converts 24 V to 5 V via the [LM2575](https://www.meanwellusa.com/productPdf.aspx?i=794 "SPBW03F-05")
+Bowen suggested the idea of utilizing the excess components from our previous 5 V buck converter design in the place of his resistor divider that could not provide sufficient current.  I designed an additional PCB, our fourth total, that converts 24 V to 5 V via the [LM2575](datasheets\LM2575-6 "LM2575-5") regulated converter IC.  The schematic and board can be seen below:
+
+![Buck Board Schematic](buck_schematic.png)
+
+![Buck Board](buck_board.png)
+
+![3D View of Buck Board](buck_board3d.png)
