@@ -46,7 +46,7 @@ However, we decided to move away from this design due to the substantial voltage
 ![Original Switching Waveform](images/old_switching_waveform.png)
 
 # 2022-02-23 - New Switching Network Design
-I realized that in order to switch between the sources while protecting against reverse current between them, it would be possible to simply use two MOSFETs in opposite orientations for each source.  This can be done by controlling a quad high-side gate driver [LT1161](datasheets/LT1161.pdf "LT1161") via the microcontroller.  In LTspice, one can emulate this behavior by sending complementary signals into the inputs of the gate driver.  The schematic and waveform can be seen below:
+I realized that in order to switch between the sources while protecting against reverse current between them, it would be possible to simply use two MOSFETs in opposite orientations for each source.  This can be done by controlling a quad high-side gate driver ([LT1161](datasheets/LT1161.pdf "LT1161")) via the microcontroller.  In LTspice, one can emulate this behavior by sending complementary signals into the inputs of the gate driver.  The schematic and waveform can be seen below:
 
 ![New Switching Network](images/switching.png)
 
@@ -61,9 +61,9 @@ Today we finished up the design document, taking into account feedback from our 
 Today we discussed whether to implement isolation between the 24 V voltage levels and the 3.3 V and 5 V levels required for the MCU and sensors.  This would require additional components beyond what we already ordered for our power board but we decided this was worth the extra effort to ensure signal integrity for our sensors.  Thus, we will be altering our existing power board to include small (2-5 W) isolated DC-DC converters.  Based on our calculations of the power consumption of our MCU and sensors, we will draw a maximum of 0.5 W from our converters.
 
 # 2022-03-02 - Voltage Isolation Designing
-Upon further analysis, we have decided to move the step-down voltage conversion to the MCU board to be closer to the sensors and MCU.  Thus, we will also require jumpers between the boards to provide 5 V and isolated ground to the power board for a few components.  We have decided to utilize the SPBW03F-05 isolated DC-DC converter [SPBW03F-05](datasheets/SPBW03F-05.pdf "SPBW03F-05") for our 5 V level.  This provides isolation and is rated for up to 3 W, which provides the maximum required power drawn by the sensors and allows leeway for additional power drawn during the operation of the MCU.
+Upon further analysis, we have decided to move the step-down voltage conversion to the MCU board to be closer to the sensors and MCU.  Thus, we will also require jumpers between the boards to provide 5 V and isolated ground to the power board for a few components.  We have decided to utilize the [SPBW03F-05](datasheets/SPBW03F-05.pdf "SPBW03F-05") isolated DC-DC converter for our 5 V level.  This provides isolation and is rated for up to 3 W, which provides the maximum required power drawn by the sensors and allows leeway for additional power drawn during the operation of the MCU.
 
-Additionally, in order to allow for proper voltage isolation, we will include opto-isolators [MOCD207M](datasheets/MOCD207M.pdf "MOCD207M") that can transmit the signals from our sensors across the different ground levels.
+Additionally, in order to allow for proper voltage isolation, we will include [MOCD207M](datasheets/MOCD207M.pdf "MOCD207M") opto-isolators that can transmit the signals from our sensors across the different ground levels.
 
 It is important to note that the 3.3 V DC-DC converter will no longer be utilized.  The humidity sensor was the only component that would require 3.3 V, which is unnecessary considering it can safely operate at 5 V.
 
@@ -105,7 +105,7 @@ Bowen and I had previously tried to test the switching network, but were confuse
 
 This setup includes the DC power supply to provide 24 V input to simulate both solar and grid sources, a two-channel waveform generator to control the gate driver inputs for solar and grid power, a multimeter to probe various voltages and perform continuity checks, and an oscilloscope to view how the output voltages changes relative to the switching.
 
-I eventually realized that the datasheet for the LT1161 quad high-side gate driver [LT1161](datasheets/LT1161.pdf "LT1161") states that the four timer pins should be left open if the sensing functionality is not being utilized.  However, our design contained 1 uF capacitors to GND at each of these pins.  Upon removing these capacitors, the switching network behaved
+I eventually realized that the datasheet for the [LT1161](datasheets/LT1161.pdf "LT1161") quad high-side gate driver states that the four timer pins should be left open if the sensing functionality is not being utilized.  However, our design contained 1 uF capacitors to GND at each of these pins.  Upon removing these capacitors, the switching network behaved
 as intended.  This change is reflected in our most recent iteration of the power board.
 
 # 2022-03-29 - Designing 5 V Buck Board
