@@ -54,3 +54,26 @@ As we can see, the voltage dip is negligible compared to that of the original de
 
 # 2022-02-24 - Finishing Design Document
 Today we finished up the design document, taking into account feedback from our Design Document Check with Professor Shao.  We have added additional details into our high-level requirements based on this feedback.  Additionally, we realized that we must select a proper heat sink for the power resistor at the solar output.  Without it, our chosen resistor is only rated for 3 W.
+
+# 2022-03-01 - Discussing Voltage Isolation
+Today we discussed whether to implement isolation between the 24 V voltage levels and the 3.3 V and 5 V levels required for the MCU and sensors.  This would require additional components beyond what we already ordered for our power board but we decided this was worth the extra effort to ensure signal integrity for our sensors.  Thus, we will be altering our existing power board to include small (2-5 W) isolated DC-DC converters.  Based on our calculations of the power consumption of our MCU and sensors, we will draw a maximum of 0.5 W from our converters.
+
+# 2022-03-02 - Voltage Isolation Designing
+Upon further analysis, we have decided to move the step-down voltage conversion to the MCU board to be closer to the sensors and MCU.  Thus, we will also require jumpers between the boards to provide 5 V and isolated ground to the power board for a few components.  We have decided to utilize the SPBW03F-05 isolated DC-DC converter [SPBW03F-05](https://www.meanwellusa.com/productPdf.aspx?i=794 "SPBW03F-05") for our 5 V level.  This provides isolation and is rated for up to 3 W, which provides the maximum required power drawn by the sensors and allows leeway for additional power drawn during the operation of the MCU.
+
+Additionally, in order to allow for proper voltage isolation, we will include opto-isolators [MOCD207M](https://www.mouser.com/datasheet/2/308/1/MOCD217M_D-2316206.pdf "MOCD207M") that can transmit the signals from our sensors across the different ground levels.
+
+# 2022-03-04 - MCU Board Design in KiCAD
+Today I began the design of the MCU board in KiCAD, which will include selecting parts and their corresponding footprints, developing the schematic, and routing traces and any additional debugging on the PCB side of KiCAD.  I plan on designing the board in this order and hope to finish it within the next few days.
+
+# 2022-03-07 - Finished MCU Board
+The MCU board is now complete and has passed PCBway audit.  I have now submitted a parts order online and sent the functional Gerber files to Qingyu.  The schematic and board itself are located below:
+
+![MCU Board Schematic](https://github.com/bobo-nums/ece445/blob/main/notebooks/colin/mcu_schematic.png)
+
+![MCU Board](https://github.com/bobo-nums/ece445/blob/main/notebooks/colin/mcu_board.png)
+
+![3D View of MCU Board](https://github.com/bobo-nums/ece445/blob/main/notebooks/colin/mcu_board3d.png)
+
+# 2022-03-10 - Testing Bike/Pedestrian light
+Richard placed a sample for the bike and traffic lights from Leotek and he and Bowen tested the DC traffic light modules for their various operating points and turn-on points previously.  However, the bike light we received ([Datasheet](https://leotek.com/wp-content/uploads/il6-bicycle-signal-spec_sheet.pdf "Bike Light")) is AC-powered and needed to be tested in the power lab to determine its operating points. I was able to access the Power Lab today to utilize the Variac and Yokogawa power meters for this purpose.  Combined with the previous operating points determined by Bowen and Richard, the following values represent the operating point of each of our 

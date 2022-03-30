@@ -48,4 +48,10 @@ K
 F https://datasheet.datasheetarchive.com/originals/distributors/DKDS-2/37033.pdf
 $ENDCMP
 #
+$CMP LM2575D2T-5R4G
+D ON Semiconductor, LM2575D2T-5R4G Switching Regulator 1A, Maximum of 5 V, D2PAK 5-Pin
+K
+F https://datasheet.datasheetarchive.com/originals/distributors/Datasheets-23/DSA-455635.pdf
+$ENDCMP
+#
 #End Doc Library
