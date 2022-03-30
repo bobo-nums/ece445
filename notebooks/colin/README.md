@@ -104,7 +104,7 @@ I eventually realized that the datasheet for the LT1161 quad high-side gate driv
 as intended.  This change is reflected in our most recent iteration of the power board.
 
 # 2022-03-29 - Designing 5 V Buck Board
-Bowen suggested the idea of utilizing the excess components from our previous 5 V buck converter design in the place of his resistor divider that could not provide sufficient current.  I designed an additional PCB, our fourth total, that converts 24 V to 5 V via the [LM2575](datasheets\LM2575-5 "LM2575-5") regulated converter IC.  The schematic and board can be seen below:
+Bowen suggested the idea of utilizing the excess components from our previous 5 V buck converter design in the place of his resistor divider that could not provide sufficient current.  I designed an additional PCB, our fourth total, that converts 24 V to 5 V via the [LM2575-5](datasheets/LM2575-5 "LM2575-5") regulated converter IC.  The schematic and board can be seen below:
 
 ![Buck Board Schematic](buck_schematic.png)
 
