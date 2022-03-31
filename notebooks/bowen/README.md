@@ -115,3 +115,9 @@ Today I put together the SEPIC and tried testing it. I needed to manually solder
 
 I also made some changes to the power board. Mainly changing some resistor values, fixing the coupled inductor footprint, and adding proper holes for our high current inputs and power resistor/heatsink. Like the light board, I added optional jumpers to bypass the input isolation. I added thermal reliefs to large zones to make soldering easier. 
 ![power_board_v2_pcb](power_board_v2_pcb.png)
+
+## 3/29/22
+Today I submitted version two of the light and power boards to our TA. We also had a meeting with him, where we went over what we've accomplished since we last met, which was mainly testing the boards and redesigning them.
+
+## 3/30/22
+Today I went through our partially assembled boards and desoldered the expensive components so that we can reuse them for version two boards. 
