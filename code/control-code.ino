@@ -1,20 +1,31 @@
+#include <SharpIR.h>
 #include <DHT20.h>
+#include <util/delay.h>
+
 #define PHOTO_PIN A0
-#define IR_PIN 10
-#define RED_LED 3
-#define YELLOW_LED 4
-#define GREEN_LED 5
-#define WALK_LED 10
+#define IR_PIN A1
+#define RED_LED_PIN 5
+#define YELLOW_LED_PIN 9
+#define GREEN_LED_PIN 6
+#define WALK_LED_PIN 10
 #define BIKE_INT_PIN 8
+#define IR_SENSOR_MODEL 100500
 
 const int ir_distance = 8; //8 ft?
-const int green_period = 90000;
-unsigned long time_now = 0;
 int light_val;
+int brightness = 255;
+unsigned long time_now;
+int ir_val;
 bool waitingCars = true;
+bool yellowState = false;
 float humidity_val;
 DHT20 dht;
+SharpIR irSensor = SharpIR(IR_PIN,IR_SENSOR_MODEL);
 volatile bool gotInterrupt = false;
+
+const unsigned long red_delay = 4000;   //90000, 1:30 min
+const unsigned long green_delay = 4000;
+const unsigned long yellow_delay = 1000;
 
 ISR (PCINT0_vect) 
 {
@@ -27,27 +38,23 @@ ISR (PCINT0_vect)
 } 
 
 void RedLight(){
-//  digitalWrite(RED_LED, HIGH);
-  //TODO: Add IR sensor reading
-//   ir_val = analogRead(IR_PIN);
-//  if(ir_val > ir_distance){
-//    waitingCars = true;
-//  }
-//   analogWrite(10, 0);
-//   while(millis() - time_now > 5000){
-//    time_now = millis();
-//   }
-//  delay(1000);
-//  delay(90000);
+  analogWrite(RED_LED_PIN, brightness);
+  //TODO: Activate IR sensor reading
+//  ir_val = map(analogRead(IR_PIN), 0, 1023, 0, 255);
+//  ir_val = irSensor.distance();
+  time_now = millis();
+//  while(ir_val > 200);
+   
+  while(millis() - time_now < red_delay);
+  analogWrite(RED_LED_PIN, 0);
 }
 
 void YellowLight(){
-//  yellowState = true;
-//  digitalWrite(GREEN_LED, LOW);
-//  digitalWrite(YELLOW_LED, HIGH);
+  yellowState = true;
+  analogWrite(YELLOW_LED_PIN, brightness);
   
   //READ PHOTORESISTOR
-//  light_val = map(analogRead(PHOTO_PIN), 0, 1023, 0, 255);
+  light_val = map(analogRead(PHOTO_PIN), 0, 1023, 0, 255);
 
 //--------------testing photoresistor-------------------
 //  if(light_val > 130){
@@ -81,51 +88,51 @@ void YellowLight(){
 //  }
 //  delay(500);
 //-------------------------------------------------------
-//  TODO: Add PWM adjustment code??
-//  delay(5000);
+
+  brightness = 255 - light_val; //max(0, 255 - light_val);
+  delay(yellow_delay);
+  analogWrite(YELLOW_LED_PIN, 0);
 }
 
 
 void GreenLight(){
-//  yellowState = false;
-//  digitalWrite(RED_LED, LOW);
-//  digitalWrite(GREEN_LED, HIGH);
-//TODO: Add PWM adjustment code??
-//  while(millis() - time_now > green_period && !gotInterrupt){
-//    time_now = millis();
-//  }
+  PCMSK0 |= B00000001; //mask interrupts on pin 14: PCINT0 
+  
+  analogWrite(GREEN_LED_PIN, brightness);
+  
+  time_now = millis();
+  while(millis() - time_now < green_delay && !gotInterrupt);
+
+  analogWrite(GREEN_LED_PIN, 0);
+  
+  PCMSK0 &= B00000000; //unmask interrupts
 }
 
 void setup() {
-//  light_val = map(analogRead(PHOTO_PIN), 0, 1023, 0, 255);
+  light_val = map(analogRead(PHOTO_PIN), 0, 1023, 0, 255);
 //  dht.begin();
-//  pinMode(BIKE_INT_PIN, INPUT_PULLUP);
-  analogWrite(10,0);
-  //Enable interrupt(s): PCINT0
-  PCICR |= B00000001;
-  PCMSK0 |= B00000001;
+  pinMode(WALK_LED_PIN, OUTPUT);
+  pinMode(RED_LED_PIN, OUTPUT);
+  pinMode(YELLOW_LED_PIN, OUTPUT);
+  pinMode(GREEN_LED_PIN, OUTPUT);
+  
+  analogWrite(WALK_LED_PIN, 0);
+  analogWrite(RED_LED_PIN, 0);
+  analogWrite(YELLOW_LED_PIN, 0);
+  analogWrite(GREEN_LED_PIN, 0);
+ 
+  PCICR |= B00000001; //Enable interrupts on port B (PCINT0-PCINT7)
+  PCMSK0 &= B00000000; //unmask interrupts on all pins
 }
 
 void loop() {
-  //RED LIGHT ON
   gotInterrupt = false;
+  waitingCars = true;
 
-//  if(!gotInterrupt) RedLight();
-//  if(waitingCars) GreenLight();
-//  if(!gotInterrupt && waitingCars) YellowLight();
-
-  if(gotInterrupt){
-    //TODO: switch light to red so pedestrians can cross
-//    if(yellowState){
-//      RedLight();
-//    }
-//    else{
-//      YellowLight();
-//      RedLight();
-//    }
-//    testing interrupt
-//    analogWrite(10, 255);
-//    delay(1000);
+  RedLight();
+  if(waitingCars){
+    GreenLight();
+    YellowLight();
   }
 
 }
