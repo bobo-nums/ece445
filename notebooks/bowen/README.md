@@ -121,3 +121,7 @@ Today I submitted version two of the light and power boards to our TA. We also h
 
 ## 3/30/22
 Today I went through our partially assembled boards and desoldered the expensive components so that we can reuse them for version two boards. 
+
+## 4/15/22
+Last two weeks have been spent waiting for the new PCBs to come. They came a few days ago and I finished soldering the power board today. Colin already tested the switching network and made a minor change. I tested the SEPIC and ensured it worked with our range of input voltages.
+![power_board_v2_fin](power_board_v2_fin.jpg)
