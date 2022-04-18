@@ -34,7 +34,7 @@ The traffic lights came in a few days ago. Bowen and I went into the lab to test
 # Contacting Gregg (3/5/22)
 I got into contact with Gregg about coming into the machine shop and starting to work on our physical design for the project. In the email I sent him I made a rough sketch of what we were thinking about doing for the dimensions of our traffic light (see the figure below). It would have a pole that the traffic light itself attaches too. Inside the traffic light we would be housing most of our sensors and microcontroller board. On the side of the traffic light we would have another box to house our power board. Ideally we would also have the traffic light weather-proofed but this may be out of the capabilities or budget of the machine shop.
 
-![Dimensions sketch](https://github.com/bobo-nums/ece445/blob/main/notebooks/richard/dimensions%20sketch.pdf) 
+![Dimensions sketch](https://github.com/bobo-nums/ece445/blob/main/notebooks/richard/dimensions%20sketch.PNG) 
 
 # Meeting with Gregg (3/22/22)
 Today we all went to meet and talk to Gregg about our physical design. Our original plan was overly ambitious for Gregg so he said we would need to scale down a lot. The lights themselves are each almost a foot wide in diameter so the box for the lights would be atleast 4 ft tall. We decided that for the sake of our demonstration making just the box for the lights and housing our power and light boards inside it would be enough. A smaller box attached to the top of the traffic light would hold our MCU board and all the sensors that need to connect to it. 
@@ -93,11 +93,201 @@ The other day our first order of PCBs came in. I soldered together the whole MCU
 I went into the lab to begin programming the MCU board. Following Bowen's advice, I used the Arduino Mega as a programmer uploading the ArduinoISP onto it. I was fiddling around with this for a long time before realizing I had connected the RESET_PIN of the ISP incorrectly. Once this was fixed, I programmed the control board to run a basic LED blink program to make sure it was programmable. 
 
 # Testing light and humidity sensors (3/27/22)
-Today I went into lab to test the photoresistor sensors and the humidity sensors. I found a Arduino library to use with our humidity sensor that makes interfacing with it relatively easy. I got both sensors functioning properly and updated our code (see figure below). Programming the MCU board with the Arduino Mega poses a problem with getting serial data from the control board. For the time being I am testing with some LEDs and using PWM to write their brightness based on values we get from our sensors. This how the lights will be adjusted once they are attached to our full scale traffic light so it simulates our full system rather well.  
+Today I went into lab to test the photoresistor sensors and the humidity sensors. I found a Arduino library to use with our humidity sensor that makes interfacing with it relatively easy. I got both sensors functioning properly and updated our code (see figure below). Programming the MCU board with the Arduino Mega poses a problem with getting serial data from the control board. For the time being I am testing with some LEDs and using PWM to write their brightness based on values we get from our sensors. This how the lights will be adjusted once they are attached to our full scale traffic light so it simulates our full system rather well.
+```
+#include <DHT20.h>
+#define PHOTO_PIN 9
+#define IR_PIN 10
+#define RED_LED 3
+#define YELLOW_LED 4
+#define GREEN_LED 5
 
+cont int ir_distance = 8 //8 ft?
+int light_val;
+int ir_val;
+float humidity_val;
+
+void setup() {
+  light_val = analogRead();
+  dht.begin();
+  Serial.begin(9600);
+}
+
+void loop() {
+  //Red light turns on
+  digitalWrite(RED_LED, HIGH);
+  delay(90000);
+  //TODO: Add IR sensor reading
+//   ir_val = analogRead(IR_PIN);
+  while(ir_val > ir_distance){
+    ir_val = analogRead(IR_PIN);
+  }
+
+  //Green light turns on
+  digitalWrite(RED_LED, LOW);
+  digitalWrite(GREEN_LED, HIGH);
+  //TODO: Add PWM adjustment code
+  delay(90000);
+
+  //Yellow light turns on
+  digitalWrite(GREEN_LED, LOW);
+  digitalWrite(YELLOW_LED, HIGH);
+  
+  //Take photoresistor reading
+  light_val = analogRead(PHOTO_PIN);
+  
+  //Take humidity reading
+  int humidity_sensor_status = dht.read();
+  switch (humidity_sensor_status)
+  {
+    case DHT20_OK:
+//       Serial.print("OK,\t");
+      humidity_val = dht.getHumidity();
+      break;
+    default:
+      Serial.print("Unknown error,\t");
+      humidity_val = 100;
+      break;
+  }
+
+  delay(5000);
+}
+```
 # Adding state machine and button interrupt (3/29/22)
 I set up a more robust state machine machine in our code today. Making each light an individual state as in our original control flow diagram. I also began implementing the pedestrian/biker button interrupt. The button should be able to make an interrupt in any state and be handled appropriately. There seems to be an issue with using the delay() function from arduino libraries. Although the interrupt is happening in within the delay function there is no way to exit from the delay. There are also time where it seems like the button interrupts are locking and the interrupt does not get handled at all. I will need to find a more convenient way to handle interrupts, in this current way they are not reliable.
+```
+#include <DHT20.h>
+#define PHOTO_PIN A0
+#define IR_PIN 10
+#define RED_LED 3
+#define YELLOW_LED 4
+#define GREEN_LED 5
+#define WALK_LED 10
+#define BIKE_INT_PIN 8
 
+const int ir_distance = 8; //8 ft?
+const int green_period = 90000;
+unsigned long time_now = 0;
+int light_val;
+bool waitingCars = true;
+float humidity_val;
+DHT20 dht;
+volatile bool gotInterrupt = false;
+
+ISR (PCINT0_vect) 
+{
+//  if(digitalRead(BIKE_INT_PIN)){
+////    analogWrite(10, 255);
+//    //TODO: add interrupt routine to let pedestrians cross
+//    gotInterrupt = true;
+//  }
+  gotInterrupt = true;
+} 
+
+void RedLight(){
+//  digitalWrite(RED_LED, HIGH);
+  //TODO: Add IR sensor reading
+//   ir_val = analogRead(IR_PIN);
+//  if(ir_val > ir_distance){
+//    waitingCars = true;
+//  }
+//   analogWrite(10, 0);
+//   while(millis() - time_now > 5000){
+//    time_now = millis();
+//   }
+//  delay(1000);
+//  delay(90000);
+}
+
+void YellowLight(){
+//  yellowState = true;
+//  digitalWrite(GREEN_LED, LOW);
+//  digitalWrite(YELLOW_LED, HIGH);
+  
+  //READ PHOTORESISTOR
+//  light_val = map(analogRead(PHOTO_PIN), 0, 1023, 0, 255);
+
+//--------------testing photoresistor-------------------
+//  if(light_val > 130){
+//    analogWrite(10, 255);
+//  }
+//  else{
+//    analogWrite(10, 0);
+//  }
+//--------------------------------------------------------
+  
+  //Take humidity reading
+//  int humidity_sensor_status = dht.read();
+//  switch (humidity_sensor_status)
+//  {
+//    case DHT20_OK:
+//      humidity_val = dht.getHumidity();
+////      Serial.println(humidity_val);
+//      break;
+//    default:
+////      Serial.print("Unknown error,\t");
+//      humidity_val = 100;
+//      break;
+//  }
+
+//------------------testing humidity sensor-------------
+//  if(humidity_val > 60){
+//    analogWrite(10, 255);
+//  }
+//  else{
+//    analogWrite(10, 0);
+//  }
+//  delay(500);
+//-------------------------------------------------------
+//  TODO: Add PWM adjustment code??
+//  delay(5000);
+}
+
+
+void GreenLight(){
+//  yellowState = false;
+//  digitalWrite(RED_LED, LOW);
+//  digitalWrite(GREEN_LED, HIGH);
+//TODO: Add PWM adjustment code??
+//  while(millis() - time_now > green_period && !gotInterrupt){
+//    time_now = millis();
+//  }
+}
+
+void setup() {
+//  light_val = map(analogRead(PHOTO_PIN), 0, 1023, 0, 255);
+//  dht.begin();
+//  pinMode(BIKE_INT_PIN, INPUT_PULLUP);
+  analogWrite(10,0);
+  //Enable interrupt(s): PCINT0
+  PCICR |= B00000001;
+  PCMSK0 |= B00000001;
+}
+
+void loop() {
+  //RED LIGHT ON
+  gotInterrupt = false;
+
+//  if(!gotInterrupt) RedLight();
+//  if(waitingCars) GreenLight();
+//  if(!gotInterrupt && waitingCars) YellowLight();
+
+  if(gotInterrupt){
+    //TODO: switch light to red so pedestrians can cross
+//    if(yellowState){
+//      RedLight();
+//    }
+//    else{
+//      YellowLight();
+//      RedLight();
+//    }
+//    testing interrupt
+//    analogWrite(10, 255);
+//    delay(1000);
+  }
+
+}
+```
 # Testing optoisolators and power monitor on power board (3/31/22)
 I soldered together the power monitor, optoisolators, and jumpers on the power board to try and test the power monitor today. It was somewhat awkward to test the optoisolators there is no pins to attach wires to. I soldered wires to the ends of resistors and other PCB pads in an attempt to test. I ended up trying to power the board from a microcontroller and use a external power supply on the other side of the collector emittor side of the optoisolator to try and test the IC. It seemed like this did not work at all the optoisolator was not switching at all when I pulled the MCU pin high or low.
 
@@ -110,7 +300,146 @@ I tested the IR sensor today and fixed our button intterupt. The found a arduino
 I also fixed our button interrupt issue today and simplified the state machine greatly. First I found millis() is a much more reliable function for getting accurate timing and allowing button interrupts to occur at any time. Although, later I realized that button interrupts really only need to happen during a green light phase when a pedestrian is trying to cross but traffic still has a green light. Rather than having the system be always interruptable I changed it so button interrupts are only masked in the green light phase. The button interrupt is fully functional now and works very reliably for pedestrians, switching to yellow-red sequence when the button is pressed.
 
 The code in its current state should be fully operational (except the power monitor) on our full scale system. Once everything is assembled we will just need to test our full system and tune parameters from our sensors to adjust the brightness of our lights and the timing of the light sequence.
+```
+#include <SharpIR.h>
+#include <DHT20.h>
+#include <util/delay.h>
 
+#define PHOTO_PIN A0
+#define IR_PIN A1
+#define RED_LED_PIN 5
+#define YELLOW_LED_PIN 9
+#define GREEN_LED_PIN 6
+#define WALK_LED_PIN 10
+#define BIKE_INT_PIN 8
+#define IR_SENSOR_MODEL 100500
+
+const int ir_distance = 8; //8 ft?
+int light_val;
+int brightness = 255;
+unsigned long time_now;
+int ir_val;
+bool waitingCars = true;
+bool yellowState = false;
+float humidity_val;
+DHT20 dht;
+SharpIR irSensor = SharpIR(IR_PIN,IR_SENSOR_MODEL);
+volatile bool gotInterrupt = false;
+
+const unsigned long red_delay = 4000;   //90000, 1:30 min
+const unsigned long green_delay = 4000;
+const unsigned long yellow_delay = 1000;
+
+ISR (PCINT0_vect) 
+{
+//  if(digitalRead(BIKE_INT_PIN)){
+////    analogWrite(10, 255);
+//    //TODO: add interrupt routine to let pedestrians cross
+//    gotInterrupt = true;
+//  }
+  gotInterrupt = true;
+} 
+
+void RedLight(){
+  analogWrite(RED_LED_PIN, brightness);
+  //TODO: Activate IR sensor reading
+//  ir_val = map(analogRead(IR_PIN), 0, 1023, 0, 255);
+//  ir_val = irSensor.distance();
+  time_now = millis();
+//  while(ir_val > 200);
+   
+  while(millis() - time_now < red_delay);
+  analogWrite(RED_LED_PIN, 0);
+}
+
+void YellowLight(){
+  yellowState = true;
+  analogWrite(YELLOW_LED_PIN, brightness);
+  
+  //READ PHOTORESISTOR
+  light_val = map(analogRead(PHOTO_PIN), 0, 1023, 0, 255);
+
+//--------------testing photoresistor-------------------
+//  if(light_val > 130){
+//    analogWrite(10, 255);
+//  }
+//  else{
+//    analogWrite(10, 0);
+//  }
+//--------------------------------------------------------
+  
+  //Take humidity reading
+//  int humidity_sensor_status = dht.read();
+//  switch (humidity_sensor_status)
+//  {
+//    case DHT20_OK:
+//      humidity_val = dht.getHumidity();
+////      Serial.println(humidity_val);
+//      break;
+//    default:
+////      Serial.print("Unknown error,\t");
+//      humidity_val = 100;
+//      break;
+//  }
+
+//------------------testing humidity sensor-------------
+//  if(humidity_val > 60){
+//    analogWrite(10, 255);
+//  }
+//  else{
+//    analogWrite(10, 0);
+//  }
+//  delay(500);
+//-------------------------------------------------------
+
+  brightness = 255 - light_val; //max(0, 255 - light_val);
+  delay(yellow_delay);
+  analogWrite(YELLOW_LED_PIN, 0);
+}
+
+
+void GreenLight(){
+  PCMSK0 |= B00000001; //mask interrupts on pin 14: PCINT0 
+  
+  analogWrite(GREEN_LED_PIN, brightness);
+  
+  time_now = millis();
+  while(millis() - time_now < green_delay && !gotInterrupt);
+
+  analogWrite(GREEN_LED_PIN, 0);
+  
+  PCMSK0 &= B00000000; //unmask interrupts
+}
+
+void setup() {
+  light_val = map(analogRead(PHOTO_PIN), 0, 1023, 0, 255);
+//  dht.begin();
+  pinMode(WALK_LED_PIN, OUTPUT);
+  pinMode(RED_LED_PIN, OUTPUT);
+  pinMode(YELLOW_LED_PIN, OUTPUT);
+  pinMode(GREEN_LED_PIN, OUTPUT);
+  
+  analogWrite(WALK_LED_PIN, 0);
+  analogWrite(RED_LED_PIN, 0);
+  analogWrite(YELLOW_LED_PIN, 0);
+  analogWrite(GREEN_LED_PIN, 0);
+ 
+  PCICR |= B00000001; //Enable interrupts on port B (PCINT0-PCINT7)
+  PCMSK0 &= B00000000; //unmask interrupts on all pins
+}
+
+void loop() {
+  gotInterrupt = false;
+  waitingCars = true;
+
+  RedLight();
+  if(waitingCars){
+    GreenLight();
+    YellowLight();
+  }
+
+}
+```
 # Testing optoisolator attempt #3 (4/8/22)
 Looking for the short on our power board PCB again today. After talking to Bowen some more about the power board I found that the jumpers were causing the short. I ended up removing two of four jumpers, this is ok because they are not entirely necessary. The jumpers are used to dictate the I2C address of the power monitor, but GND GND is one of the available configurations. I got rid of the short and went to test again. This time the collector emitter side seemed to draw an appropriate amount of current of a few mA, but the MCU pins on the anode cathode side did not seem to switch it on or off. After talking to Colin and looking deeper into the datasheet it seems like the optoisolator might be reseting too quickly to be able to tell. Colin did some testing on his own and says it should be working. We will go with this assumption and test the power monitor.
 
