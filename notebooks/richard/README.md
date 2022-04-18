@@ -34,10 +34,57 @@ The traffic lights came in a few days ago. Bowen and I went into the lab to test
 # Contacting Gregg (3/5/22)
 I got into contact with Gregg about coming into the machine shop and starting to work on our physical design for the project. In the email I sent him I made a rough sketch of what we were thinking about doing for the dimensions of our traffic light (see the figure below). It would have a pole that the traffic light itself attaches too. Inside the traffic light we would be housing most of our sensors and microcontroller board. On the side of the traffic light we would have another box to house our power board. Ideally we would also have the traffic light weather-proofed but this may be out of the capabilities or budget of the machine shop.
 
+![Dimensions sketch](https://github.com/bobo-nums/ece445/blob/main/notebooks/richard/dimensions%20sketch.pdf) 
+
 # Meeting with Gregg (3/22/22)
 Today we all went to meet and talk to Gregg about our physical design. Our original plan was overly ambitious for Gregg so he said we would need to scale down a lot. The lights themselves are each almost a foot wide in diameter so the box for the lights would be atleast 4 ft tall. We decided that for the sake of our demonstration making just the box for the lights and housing our power and light boards inside it would be enough. A smaller box attached to the top of the traffic light would hold our MCU board and all the sensors that need to connect to it. 
 
 I also made a rough draft of our code for our MCU board today. We do not have the board itself yet so I will have to figure out all the pin mappings once the board is put together. This is a very rough idea of how the code will be layed out, it will need to be revised heavily once the board is put together. See the first rough draft of our code in the figure below.
+```
+#include <Wire.h>
+#define PHOTO_PIN 9
+#define IR_PIN 10
+#define SDA 0
+#define SCL 1
+#define RED_LED 3
+#define YELLOW_LED 4
+#define GREEN_LED 5
+
+cont int ir_distance = 12 //12-18 ft?
+int light_val;
+int ir_val;
+
+void setup() {
+  // put your setup code here, to run once:
+  light_val = analogRead();
+  Serial.begin(9600);
+}
+
+void loop() {
+  //Red light turns on
+  digitalWrite(RED_LED, HIGH);
+  delay(90000);
+  ir_val = analogRead(IR_PIN);
+  while(ir_val > ir_distance){
+    ir_val = analogRead(IR_PIN);
+  }
+
+  //Green light turns on
+  digitalWrite(RED_LED, LOW);
+  digitalWrite(GREEN_LED, HIGH);
+  //TODO: Add PWM adjustment code
+  delay(90000);
+
+  //Yellow light turns on
+  digitalWrite(GREEN_LED, LOW);
+  digitalWrite(YELLOW_LED, HIGH);
+
+  light_val = analogRead(PHOTO_PIN);
+  //TODO: Read humidity sensor value through i2c
+
+  delay(5000);
+}
+```
 
 # Soldering MCU board (3/23/22)
 The other day our first order of PCBs came in. I soldered together the whole MCU board today and did some continuity tests to make sure everything was connected correctly.
