@@ -125,3 +125,6 @@ Today I went through our partially assembled boards and desoldered the expensive
 ## 4/15/22
 Last two weeks have been spent waiting for the new PCBs to come. They came a few days ago and I finished soldering the power board today. Colin already tested the switching network and made a minor change. I tested the SEPIC and ensured it worked with our range of input voltages.
 ![power_board_v2_fin](power_board_v2_fin.jpg)
+
+## 4/18/22
+Today I tested the light board after Richard said the optoisolators didn't work. It ended up being that he didn't connect MCU_GND pin to the MCU GND. I soldered pin headers to the board to make it easier to connect wires. I tested the entire light board and verified that all the PWM works with our optoisolators and relay works as well. 
