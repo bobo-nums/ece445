@@ -36,10 +36,11 @@ I got into contact with Gregg about coming into the machine shop and starting to
 
 ![Dimensions sketch](https://github.com/bobo-nums/ece445/blob/main/notebooks/richard/dimensions%20sketch.PNG) 
 
-# Meeting with Gregg (3/22/22)
+# Meeting with Gregg (3/8/22)
 Today we all went to meet and talk to Gregg about our physical design. Our original plan was overly ambitious for Gregg so he said we would need to scale down a lot. The lights themselves are each almost a foot wide in diameter so the box for the lights would be atleast 4 ft tall. We decided that for the sake of our demonstration making just the box for the lights and housing our power and light boards inside it would be enough. A smaller box attached to the top of the traffic light would hold our MCU board and all the sensors that need to connect to it. 
 
-I also made a rough draft of our code for our MCU board today. We do not have the board itself yet so I will have to figure out all the pin mappings once the board is put together. This is a very rough idea of how the code will be layed out, it will need to be revised heavily once the board is put together. See the first rough draft of our code in the figure below.
+# Rough draft of control code (3/22/22)
+I made a rough draft of our code for our MCU board today. We do not have the board itself yet so I will have to figure out all the pin mappings once the board is put together. This is a very rough idea of how the code will be layed out, it will need to be revised heavily once the board is put together. See the first rough draft of our code in the figure below. Gregg also finished our physical design recently, attached below is photo of our finished physical design.
 ```
 #include <Wire.h>
 #define PHOTO_PIN 9
@@ -86,11 +87,13 @@ void loop() {
 }
 ```
 
+![Physical Design Photo](https://github.com/bobo-nums/ece445/blob/main/notebooks/richard/Physical_design_picture.jpeg)
+
 # Soldering MCU board (3/23/22)
 The other day our first order of PCBs came in. I soldered together the whole MCU board today and did some continuity tests to make sure everything was connected correctly.
 
 # Programming the MCU (3/26/22)
-I went into the lab to begin programming the MCU board. Following Bowen's advice, I used the Arduino Mega as a programmer uploading the ArduinoISP onto it. I was fiddling around with this for a long time before realizing I had connected the RESET_PIN of the ISP incorrectly. Once this was fixed, I programmed the control board to run a basic LED blink program to make sure it was programmable. 
+I went into the lab to begin programming the MCU board. Following Bowen's advice, I used the Arduino Mega as a programmer uploading the ArduinoISP onto it. I was fiddling around with this for a long time before realizing I had connected the RESET_PIN of the ISP incorrectly. Once this was fixed, I programmed the control board to run a basic LED blink program to make sure it was programmable. Our 
 
 # Testing light and humidity sensors (3/27/22)
 Today I went into lab to test the photoresistor sensors and the humidity sensors. I found a Arduino library to use with our humidity sensor that makes interfacing with it relatively easy. I got both sensors functioning properly and updated our code (see figure below). Programming the MCU board with the Arduino Mega poses a problem with getting serial data from the control board. For the time being I am testing with some LEDs and using PWM to write their brightness based on values we get from our sensors. This how the lights will be adjusted once they are attached to our full scale traffic light so it simulates our full system rather well.
@@ -297,7 +300,7 @@ I went into the lab again to test the optoisolators. I powered the power board f
 # Fixing button interrupt and testing IR sensor (4/4/22)
 I tested the IR sensor today and fixed our button intterupt. The found a arduino library that goes with our IR sensor and makes communicating with it much easier. I used a ruler and a test LED to see whether the distance was being accurately read from the sensor. At first the distances seemed to be very short and not accurate. Bowen suggested I use an external power supply for the IR sensor, I did this and it seemed to fix the issue somewhat. The sensor could read much further distance, although the background of the lab is rather noisy with a lot of different colors. This could make it harder to get accurate readings at much longer distances.
 
-I also fixed our button interrupt issue today and simplified the state machine greatly. First I found millis() is a much more reliable function for getting accurate timing and allowing button interrupts to occur at any time. Although, later I realized that button interrupts really only need to happen during a green light phase when a pedestrian is trying to cross but traffic still has a green light. Rather than having the system be always interruptable I changed it so button interrupts are only masked in the green light phase. The button interrupt is fully functional now and works very reliably for pedestrians, switching to yellow-red sequence when the button is pressed.
+I also fixed our button interrupt issue today and simplified the state machine greatly. First I found millis() is a much more reliable function for getting accurate timing and allowing button interrupts to occur at any time. Although, later I realized that button interrupts really only need to happen during a green light phase when a pedestrian is trying to cross but traffic still has a green light. Rather than having the system be always interruptable I changed it so button interrupts are only masked in the green light phase. The button interrupt is fully functional now and works very reliably for pedestrians, switching to yellow-red sequence when the button is pressed. There is a picture of my test setup below with all the sensors connected.
 
 The code in its current state should be fully operational (except the power monitor) on our full scale system. Once everything is assembled we will just need to test our full system and tune parameters from our sensors to adjust the brightness of our lights and the timing of the light sequence.
 ```
@@ -440,6 +443,9 @@ void loop() {
 
 }
 ```
+
+![Test Sensors](https://github.com/bobo-nums/ece445/blob/main/notebooks/richard/MCU_sensor_test.jpeg)
+
 # Testing optoisolator attempt #3 (4/8/22)
 Looking for the short on our power board PCB again today. After talking to Bowen some more about the power board I found that the jumpers were causing the short. I ended up removing two of four jumpers, this is ok because they are not entirely necessary. The jumpers are used to dictate the I2C address of the power monitor, but GND GND is one of the available configurations. I got rid of the short and went to test again. This time the collector emitter side seemed to draw an appropriate amount of current of a few mA, but the MCU pins on the anode cathode side did not seem to switch it on or off. After talking to Colin and looking deeper into the datasheet it seems like the optoisolator might be reseting too quickly to be able to tell. Colin did some testing on his own and says it should be working. We will go with this assumption and test the power monitor.
 
