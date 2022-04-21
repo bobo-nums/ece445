@@ -128,3 +128,9 @@ Last two weeks have been spent waiting for the new PCBs to come. They came a few
 
 ## 4/18/22
 Today I tested the light board after Richard said the optoisolators didn't work. It ended up being that he didn't connect MCU_GND pin to the MCU GND. I soldered pin headers to the board to make it easier to connect wires. I tested the entire light board and verified that all the PWM works with our optoisolators and relay works as well. 
+
+## 4/19/22
+We had our TA meeting today where we had a mock demo. We showed him our SEPIC, switching network, MCU controls, 5V buck, and light board. The only thing we have left to do is figure out the power monitor and put everything together. 
+
+## 4/20/22
+We wired up the light board to our traffic light and verified it worked as expected. I 3D printed a mount for our buck board since we made it after the machine shop finished the physical design, but I'll need to increase the height since the screws we were using protruded a bit too much and could cause a short between the through hole capacitor. Additionally, Richard and I tried to debug the power monitor, but we could not figure out what was wrong. At first, we tried running sample code from a library we found online, but the outputted values were junk. Next we ran a I2C address scanner, which revealed that aparently the power monitor was not even on our I2C bus. It might be a problem us using isolators, but given that the schematic and components were from the official datasheet, the only problem we could think of was a faulty optoisolator. Our tentative backup plan is to manually switch between grid and solar panel using a switch or button.
