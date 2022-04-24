@@ -68,20 +68,20 @@ Green: 24V and 0.31A
 We also took apart one of the lights to find that there was internal circuitry, which most likely already contains some current limiting resistor. This means that for the light PCB, I can just connect the lights directly to 24V. The bike light that we got was not powered by 24V like we thought, but instead 120VAC. In order to control ON/OFF, I needed a relay. Since we were planning on using PWM for the bike lights, I looked into solid state relays since they have a higher switching speed than regular contact relays. However, they were either all sold out or out of our budget. So, we decided for the bike light to function without PWM. I found [this](https://www.digikey.com/en/products/detail/te-connectivity-potter-brumfield-relays/1462041-7/2126941) relay, which supports up to 2A and is controlled by 5V. I also needed to ensure that AC and DC neutral/ground were separated. In the following figure, the AC stuff is in the top right corner for the bike light.
 ![lpcb1](light_board_pcb.png)
 
-## 3/6/22
+## 3/6/22 - Isolation & revisions
 We decided that we wanted to isolate the 24V from the 5V and get rid of the 3.3V rail. The humidity sensor was the only sensor that used 3.3V, but we looked into its datasheet and saw that the maximum supply voltage was up to 5.5V, so we will use 5V to power it. This is the new power board and light board with optoisolators. For the power board, I decided to have pinheaders for the grid/solar control input of the switching network. This is because the optoisolators are at the bottom of the PCB while the LT1161 is at the top. I could have routed the signals on the bottom layer, but that would essentially cut my ground plane in two, which can cause ground loops
 ![ppcb3](power_board_pcb3.png)
 ![lpcb2](light_board_pcb2.png)
 
-## 3/22/22
+## 3/22/22 - Weekly TA meeting
 Today we picked up our PCBs and sorted our components to match the three boards. We also had our TA meeting, but there wasn't much to update on since we just came back from spring break.
 
-## 3/23/22
+## 3/23/22 - Light board debugging
 I spent a bunch of time trying to debug the light board and found some issues. The N-channel MOSFET should be on the low side, rather than connected to 24V. This is because currently, the Vgs is floating, when it should be the voltage from gate to ground. The VIN and GND of the relay should be switched around. Also, the optoisolator had a very large voltage drop (10.7V) when there is 5V across the anode/cathode and 12V across the collector/emitter, and I'm not really sure why. It might be because of the 10k resistances. I soldered 1k resistors and it seemed to help a bit. I'll have to try lower values and see if they work. 
 ![lpcb_debug](light_debug.png)
 The power board had some blatant issues. The power resistor needs larger through holes, and we need to make space for the large heatsink and its mounting holes. We need to change the sepic MOSFET footprint to a SOIC-8 and capacitor C24 and C25 footprints to match what we ordered.
 
-## 3/24/22
+## 3/24/22 - Light board debugging, other testing
 I figured out what was wrong with the optoisolators. The 10k resistors on the inputs were too large and thus very little current was flowing through the diode inside the isolator. According to the datasheet, there should be around a 1V drop across the diode at 30mA. When I changed the resistors to 150 ohms, the isolators functioned as expected. 
 
 Another thing that went wrong was the 12V divider I made to power the MOSFET gates. I wanted to ensure the turn on time was minimal, but I didn't realize that it depended on the gate current. Since I didn't want another buck converter on the board, I tried testing the MOSFETs to see if they would work with a 5V Arduino input. They ended up working using Arduino's analogWrite() as a PWM. This means we don't need a 12V rail and can either use our old 5V buck converter IC to create an isolated noisy 5V rail that's separate from the MCU's 5V rail or directly control the gates with the Arduino. I'll probably include both in our version 2 PCBs and add jumpers to decide which way we want.
@@ -93,21 +93,21 @@ I also tested the photocell voltage divider and ensured it worked. The first pic
 
 Finally, I tested the power board's switching network and discovered something called [dielectric absorption](https://en.wikipedia.org/wiki/Dielectric_absorption). Essentially, large capacitances, even when disconnected from a power source, can slowly gain voltage over time, so I'll have to be careful working with this board. The switching network seems fine when I switch to grid power, but doesn't work when trying to switch to solar. I'll have to debug more later.
 
-## 3/25/22
+## 3/25/22 - Programming ATmega328p
 Today I tried burn a bootloader onto our MCU board's ATmega328p. I first tried to burn a bootloader between two Arduino MEGAs, and I used [this](https://support.arduino.cc/hc/en-us/articles/360012048060-How-to-burn-the-bootloader-between-two-Arduino-Mega) tutorial which helped a lot. I needed to change some pins (RESET, PIN_MOSI, PIN_MISO, AND PIN_SCK) in the ArduinoISP code. I also used [this](https://maker.pro/custom/tutorial/programming-an-atmega328-microcontroller-on-a-pcb) article to use the Arduino MEGA as a programmer. Below is my testing setup.
 ![mcu_test](mcu_test.jpg)
 
 I got the blink sketch to run on our MCU board. I was defining the LED pin incorrectly. For future reference, use [this](https://components101.com/sites/default/files/inline-images/ATMega328P-Arduino-Uno-Pin-Mapping.png) pin mapping.
 ![mcu_blink](mcu_blink.jpg)
 
-## 3/26/22
+## 3/26/22 - Light board fixes & other changes
 Today I helped Richard set up his development configuration on his Arduino MEGA so he could program our microcontroller. I also redesigned the light board.
 
 I moved the traffic light MOSFETs to the proper side, removed the bike light MOSFET, fixed resistor values, and added optional signal/GND jumpers if somehow the optoisolators do not work and we need to control the MOSFETs directly using an Arduino. We also decided to create a "noisy" 5V rail to power our MOSFETs. 
 ![light_board_v2_schem](light_board_v2_schem.png)
 ![light_board_v2_pcb](light_board_v2_pcb.png)
 
-## 3/28/22
+## 3/28/22 - Power board debugging
 Today I put together the SEPIC and tried testing it. I needed to manually solder wires in order for the coupled inductor to be connected correctly. I put the wrong footprint for one of the MOSFETs. It was an SOIC-8 but I put a LFPAK33 on the PCB. Since I was only testing the SEPIC on this power board, I used one of the SOIC-8 spaces meant for an optoisolator and cut one trace so that I didn't short gate to source. What I discovered was that the SEPIC output was non-zero only when the input voltage was aroudn 16V. I spent a while testing connectivity and double checking values and could not get it to work. Colin suggested that maybe I didn't solder the LT3757 properly, as its ground was underneath the IC. Once I soldered the ground, everything worked as expected. 
 
 ![power_board_SEPIC_test](power_board_SEPIC_test.jpg)
@@ -116,21 +116,29 @@ Today I put together the SEPIC and tried testing it. I needed to manually solder
 I also made some changes to the power board. Mainly changing some resistor values, fixing the coupled inductor footprint, and adding proper holes for our high current inputs and power resistor/heatsink. Like the light board, I added optional jumpers to bypass the input isolation. I added thermal reliefs to large zones to make soldering easier. 
 ![power_board_v2_pcb](power_board_v2_pcb.png)
 
-## 3/29/22
+## 3/29/22 - Weekly TA meeting
 Today I submitted version two of the light and power boards to our TA. We also had a meeting with him, where we went over what we've accomplished since we last met, which was mainly testing the boards and redesigning them.
 
-## 3/30/22
+## 3/30/22 - Desoldering components for reuse
 Today I went through our partially assembled boards and desoldered the expensive components so that we can reuse them for version two boards. 
 
-## 4/15/22
+## 4/15/22 - Populating new PCBs
 Last two weeks have been spent waiting for the new PCBs to come. They came a few days ago and I finished soldering the power board today. Colin already tested the switching network and made a minor change. I tested the SEPIC and ensured it worked with our range of input voltages.
 ![power_board_v2_fin](power_board_v2_fin.jpg)
 
-## 4/18/22
+## 4/18/22 - Testing light board V2
 Today I tested the light board after Richard said the optoisolators didn't work. It ended up being that he didn't connect MCU_GND pin to the MCU GND. I soldered pin headers to the board to make it easier to connect wires. I tested the entire light board and verified that all the PWM works with our optoisolators and relay works as well. 
 
-## 4/19/22
+## 4/19/22 - Weekly TA meeting
 We had our TA meeting today where we had a mock demo. We showed him our SEPIC, switching network, MCU controls, 5V buck, and light board. The only thing we have left to do is figure out the power monitor and put everything together. 
 
-## 4/20/22
+## 4/20/22 - Debugging power monitor
 We wired up the light board to our traffic light and verified it worked as expected. I 3D printed a mount for our buck board since we made it after the machine shop finished the physical design, but I'll need to increase the height since the screws we were using protruded a bit too much and could cause a short between the through hole capacitor. Additionally, Richard and I tried to debug the power monitor, but we could not figure out what was wrong. At first, we tried running sample code from a library we found online, but the outputted values were junk. Next we ran a I2C address scanner, which revealed that aparently the power monitor was not even on our I2C bus. It might be a problem us using isolators, but given that the schematic and components were from the official datasheet, the only problem we could think of was a faulty optoisolator. Our tentative backup plan is to manually switch between grid and solar panel using a switch or button.
+
+## 4/22/22 - Wiring & backup plan
+We went with another backup plan for switching power sources. Instead of using a switch, we used the humidity and light sensor to determine if it is bright enough outside. If it is, we switch to solar power. However, if the humidity is high, we stay on grid power (probably raining). We also wired our power connections. 
+
+## 4/23/22 - Wiring & testing everything
+Today we finished wiring everything and finished up the code. We added some delays when switching between signals to emulate a real traffic light, and also verified we could see the lights (full brightness and 20% PWM) at over 150 ft. 
+![light_wiring](light_wiring.jpg)
+![light_far](light_far.png)
