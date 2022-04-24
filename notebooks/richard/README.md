@@ -450,4 +450,16 @@ void loop() {
 Looking for the short on our power board PCB again today. After talking to Bowen some more about the power board I found that the jumpers were causing the short. I ended up removing two of four jumpers, this is ok because they are not entirely necessary. The jumpers are used to dictate the I2C address of the power monitor, but GND GND is one of the available configurations. I got rid of the short and went to test again. This time the collector emitter side seemed to draw an appropriate amount of current of a few mA, but the MCU pins on the anode cathode side did not seem to switch it on or off. After talking to Colin and looking deeper into the datasheet it seems like the optoisolator might be reseting too quickly to be able to tell. Colin did some testing on his own and says it should be working. We will go with this assumption and test the power monitor.
 
 # Soldering light board v2 (4/14/22)
-I soldered together our version 2 of the light board PCB and tested it with our microcontroller and hooking it up to our big lights. I simply had one of the big lights blink and this seemed to work correctly. Bowen pointed out that I soldered some solder jumpers unnecessarily. I will have to go remove these and test once again to see if the optoisolators on the light board are working correctly.
+Our second round of PCB orders came in. I soldered together our version 2 of the light board PCB and tested it with our microcontroller and hooking it up to our big lights. I simply had one of the big lights blink and this seemed to work correctly. Bowen pointed out that I soldered some solder jumpers unnecessarily. I will have to go remove these and test once again to see if the optoisolators on the light board are working correctly.
+
+# Getting serial data (4/19/22)
+I found a work around for getting serial data from our mcu board through our ArduinoISP by modifying the ISP code. We could now collect data from all our sensors on the MCU board and tune sensor values. 
+
+# Testing power monitor (4/20/22)
+Bowen and I attempted to debug the power monitor and restested the optoisolators. We attmepted to do an i2c scan but no addressable devices were found. The i2c communication did not seem to work with the power monitor. We tried to bypass the optoisolators and connect SDA and SCL lines directly to the power monitor. This did not work either. After 5 hours of exhaustive testing we could not get communication to work with the power monitor. We went on to assemble the rest of our system. We came up with a plan B, we would use the photoresistor to tell us when there is enough light to operate on solar power. 
+
+# Assembling everything and tuning (4/23/22)
+Today we assembled our system entirely. I tuned the sensor values making the IR sensor detecting distances of 4-7 feet. I tuned our PWM values so our light remains visible at a distance while it is dimmed in night conditions and added a flicker effect to our bike light to give bikers a warning when the light is about to change.
+
+(add video)
+
