@@ -142,3 +142,8 @@ We went with another backup plan for switching power sources. Instead of using a
 Today we finished wiring everything and finished up the code. We added some delays when switching between signals to emulate a real traffic light, and also verified we could see the lights (full brightness and 20% PWM) at over 150 ft. 
 ![light_wiring](light_wiring.jpg)
 ![light_far](light_far.png)
+
+## 4/24/22 - Verifying everything
+We went through our requirements and verification table and tested everything that would take a lot of time during the actual demo. We verified all of our power converters were outputting the correct voltage and currents for various conditions, sensors worked, and some signal timing requirements. We used an electronic load and multimeter to test our power requirements, oscilloscope for signal timing requirements, and visual feedback for sensors. We should be ready for demo tomorrow.
+![e_load](e_load.jpg)
+![osc](osc.jpg)
