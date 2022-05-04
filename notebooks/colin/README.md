@@ -109,7 +109,7 @@ I eventually realized that the datasheet for the [LT1161](datasheets/LT1161.pdf 
 as intended.  This change is reflected in our most recent iteration of the power board.
 
 # 2022-03-29 - Designing 5 V Buck Board
-Bowen suggested the idea of utilizing the excess components from our previous 5 V buck converter design in the place of his resistor divider that could not provide sufficient current.  I designed an additional PCB, our fourth total, that converts 24 V to 5 V via the [LM2575-5](datasheets/LM2575-5.pdf "LM2575-5") regulated converter IC.  The schematic and board can be seen below:
+Bowen suggested the idea of utilizing the excess components from our previous 5 V buck converter design in the place of his resistor divider that could not provide sufficient current for the light board MOSFETs.  I designed an additional PCB, our fourth total, that converts 24 V to 5 V via the [LM2575-5](datasheets/LM2575-5.pdf "LM2575-5") regulated converter IC.  The schematic and board can be seen below:
 
 ![Buck Board Schematic](images/buck_schematic.png)
 
@@ -118,3 +118,14 @@ Bowen suggested the idea of utilizing the excess components from our previous 5 
 ![3D View of Buck Board](images/buck_board3d.png)
 
 This board, in addition to our revised power and light boards, are expected to arrive around April 11.
+
+# 2022-04-09 - Testing Power Monitor and Optoisolators
+Richard was testing the power monitor and optoisolators, and seemed to have trouble while unit testing the optoisolators.  They did not seem to respond to voltage changes at the input, so I decided to do some testing on my own.  I was able to probe the voltage at the pins of the power monitor, all of which seemed to be within reasonable bounds.  The optoisolators also responded, so I suggested to Richard that the issue may have been unit testing the power monitor and isolation without the rest of the design.  We will be moving on to fully testing the design.
+
+# 2022-04-13 - New PCBs
+The new PCBs just came in, so today I spent time soldering and testing the buck board and power board.  The buck board is fully operational over the range of 24 V +/- 5%, as indicated by out R&V tables.  I was only able to solder the switching network on the power board, but will have to wait to fully test it or the other components of the power board.
+
+# 2022-04-14 - Testing Switching Network
+Today I decided to finish testing the switching network, which I had fully soldered yesterday.  Upon testing it, I realized that its behavior was very unexpected.  The design would struggle to switch between the sources, primarily when switching from grid to solar power.  I dove into the datasheet for the [LT1161](datasheets/LT1161.pdf "LT1161") chip and discovered a glaring issue.  The sense pins should all be connected to the supply voltage when the sensing capability is not being used, which we chose to do.  However, I designed the system such that two of the sense pins are connected to the grid voltage, while the other two are connected to the solar voltage.  This leads to incorrect operation of the switching network, as the solar sense pins should be corrected to the supply voltage as well.  To solve this, I simply cut a trace on the back of the PCB and soldered a jumper wire to connect the remaining two sense pins to the supply voltage.
+
+Upon making this change, the switching network behaves as expected.  I tested it by using two complementary square waves at 120 Hz to simulate the solar and grid control.  The output voltage 
