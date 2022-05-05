@@ -130,7 +130,7 @@ Today I decided to finish testing the switching network, which I had fully solde
 
 Upon making this change, the switching network behaves as expected.  I tested it by using two complementary square waves at 120 Hz to simulate the solar and grid control, with two outputs from the power supply providing 24 V.  The output voltage did not dip at all while switching, which can be seen in the following figure:
 
-![Oscilloscope Output of Switching Network](images/switching network.png)
+![Oscilloscope Output of Switching Network](images/switching_network.png)
 
 The yellow, green, and blue waveforms represent the 24 V output, grid control, and solar control.  Due to the short switching time and the bulk capacitance at the output of the switching network, there is no drop in voltage.
 
