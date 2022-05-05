@@ -128,4 +128,17 @@ The new PCBs just came in, so today I spent time soldering and testing the buck 
 # 2022-04-14 - Testing Switching Network
 Today I decided to finish testing the switching network, which I had fully soldered yesterday.  Upon testing it, I realized that its behavior was very unexpected.  The design would struggle to switch between the sources, primarily when switching from grid to solar power.  I dove into the datasheet for the [LT1161](datasheets/LT1161.pdf "LT1161") chip and discovered a glaring issue.  The sense pins should all be connected to the supply voltage when the sensing capability is not being used, which we chose to do.  However, I designed the system such that two of the sense pins are connected to the grid voltage, while the other two are connected to the solar voltage.  This leads to incorrect operation of the switching network, as the solar sense pins should be corrected to the supply voltage as well.  To solve this, I simply cut a trace on the back of the PCB and soldered a jumper wire to connect the remaining two sense pins to the supply voltage.
 
-Upon making this change, the switching network behaves as expected.  I tested it by using two complementary square waves at 120 Hz to simulate the solar and grid control.  The output voltage 
+Upon making this change, the switching network behaves as expected.  I tested it by using two complementary square waves at 120 Hz to simulate the solar and grid control, with two outputs from the power supply providing 24 V.  The output voltage did not dip at all while switching, which can be seen in the following figure:
+
+![Oscilloscope Output of Switching Network](images/switching network.png)
+
+The yellow, green, and blue waveforms represent the 24 V output, grid control, and solar control.  Due to the short switching time and the bulk capacitance at the output of the switching network, there is no drop in voltage.
+
+# 2022-04-19 - Mock Demo
+Today we had our mock demo with Qingyu, and were able to demonstrate all portions of our overall design besides the power monitor.  From here, we just need to fully assemble everything and debug the power monitor.
+
+# 2022-04-22 - Debugging Power Monitor
+We have been debugging the power monitor for the last few days, to no avail.  It looks like we will choose a backup plan of a photoresistor that will provide a threshold of light, at which point the MCU will switch to solar power.  The power monitor does not appear on the I2C bus, which is most likely due to the unique "inverted SDAO" pin that is available, rather than a single SDA line.  We have tried inverting this pin and connecting the SDAI and SDAO pins together, which still provided no solution.  Thus, the backup plan is much more feasible at this point.
+
+# 2022-04-25 - Final Demo
+After spending the last few days assembling and finalizing our project, we had our final demo today.  All necessary requirements were met.
